@@ -154,6 +154,13 @@ Open `/admin.html`. Default credentials are `admin@local` / `admin` (override wi
 
 Saves go to the `site_content` table and every visitor sees them on the next page load — no rebuild, no redeploy. Tighten `schema.sql` to `auth.uid() = 'YOUR-USER-UUID'` once you know your user id, so a second account could never write.
 
+### Image upload
+
+Every image field has an **Upload** button; the URL input next to it still accepts a path (`/images/foo.jpg`) or a full `https://` link.
+
+- **Demo mode**: the file is downscaled in the browser (max 1200 px, JPEG 0.82) and stored as a data URL in `localStorage`, so it never leaves this browser and is capped at ~400 KB. Large photos can be rejected.
+- **Supabase mode**: the file goes to the public Storage bucket `images` (`supabase/schema.sql` creates it plus read/write policies) and the field stores the public URL. Free tier allows 1 GB storage; keep uploads under a few MB.
+
 ### Hosting note
 
 `admin.html` is a real file, so `https://your-domain/admin.html` works as-is. A shorter `/admin` URL needs a rewrite rule on your host (Vercel `rewrites`, Netlify `_redirects`).

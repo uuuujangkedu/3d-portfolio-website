@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { Field } from "../data/schema";
+import { uploadImage } from "../lib/uploadImage";
 
 type Props = {
   field: Field;
@@ -84,19 +86,30 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
     );
   }
 
-  if (field.type === "strings") {
+  if (field.type === "strings" || field.type === "imageList") {
     const list = (value ?? []) as string[];
+    const isImage = field.type === "imageList";
     return (
       <fieldset className="ad-fieldset">
         <legend>{field.label}</legend>
         {list.map((entry, index) => (
           <div className="ad-row" key={index}>
-            <input
-              value={entry}
-              onChange={(e) =>
-                onChange(list.map((v, i) => (i === index ? e.target.value : v)))
-              }
-            />
+            {isImage ? (
+              <ImageField
+                field={{ key: "", label: "", type: "image" }}
+                value={entry}
+                onChange={(next) =>
+                  onChange(list.map((v, i) => (i === index ? String(next) : v)))
+                }
+              />
+            ) : (
+              <input
+                value={entry}
+                onChange={(e) =>
+                  onChange(list.map((v, i) => (i === index ? e.target.value : v)))
+                }
+              />
+            )}
             <button
               type="button"
               className="ad-danger"
@@ -154,13 +167,61 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
     );
   }
 
+  if (field.type === "image") {
+    return <ImageField field={field} value={value} onChange={onChange} />;
+  }
+
   return (
     <label className="ad-field">
       <span>{field.label}</span>
       <input value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} />
-      {field.type === "image" && value ? (
-        <img className="ad-preview" src={String(value)} alt="" />
-      ) : null}
     </label>
+  );
+};
+
+const ImageField = ({ field, value, onChange }: Props) => {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  const pick = async (file: File | undefined) => {
+    if (!file) return;
+    setBusy(true);
+    setError("");
+    try {
+      onChange(await uploadImage(file));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="ad-field">
+      <span>{field.label}</span>
+      <div className="ad-row">
+        <input
+          value={String(value ?? "")}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="/images/namafile.jpg atau https://…"
+        />
+        <label className={`ad-upload${busy ? " busy" : ""}`}>
+          {busy ? "Mengunggah…" : "Upload"}
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={(e) => pick(e.target.files?.[0])}
+          />
+        </label>
+        {value ? (
+          <button type="button" className="ad-danger" onClick={() => onChange("")}>
+            Hapus
+          </button>
+        ) : null}
+      </div>
+      {error ? <span className="ad-field-error">{error}</span> : null}
+      {value ? <img className="ad-preview" src={String(value)} alt="" /> : null}
+    </div>
   );
 };

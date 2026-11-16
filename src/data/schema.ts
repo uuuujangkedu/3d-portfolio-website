@@ -6,6 +6,7 @@ export type FieldType =
   | "boolean"
   | "select"
   | "image"
+  | "imageList"
   | "strings";
 
 export type Field = {
@@ -120,7 +121,7 @@ export const sections: Section[] = [
     type: "group",
     fields: [
       { key: "title", label: "Judul", type: "text" },
-      { key: "images", label: "Gambar", type: "strings" },
+      { key: "images", label: "Gambar", type: "imageList" },
     ],
   },
   {
