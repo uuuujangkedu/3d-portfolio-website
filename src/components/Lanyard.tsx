@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { useContent } from "../context/ContentProvider";
+import { useLoading } from "../context/LoadingProvider";
 
 const MAX_ANGLE = 48;
 const MIN_STRETCH = -30;
@@ -17,6 +18,7 @@ const clamp = (value: number, min: number, max: number) =>
 const Lanyard = () => {
   const { firstName, lastName, rolePrimary, roleSecondary, photo } =
     useContent().landing;
+  const { isLoading } = useLoading();
   const [src] = useState(() => photo || randomPhoto());
   const [broken, setBroken] = useState(false);
   const [pose, setPose] = useState({ angle: 0, stretch: 0 });
@@ -88,6 +90,18 @@ const Lanyard = () => {
   );
 
   useEffect(() => () => cancelAnimationFrame(frame.current), []);
+
+  // Entrance: drop out of the loader and wobble itself still.
+  const entered = useRef(false);
+  useEffect(() => {
+    if (isLoading || entered.current) return;
+    entered.current = true;
+    const timer = window.setTimeout(() => {
+      paint(-22, 34);
+      settle(0, 0);
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [isLoading, paint, settle]);
 
   // Hit tested from the card's own box, so no overlay can swallow the press.
   useEffect(() => {
@@ -183,6 +197,11 @@ const Lanyard = () => {
               className={`lanyard-card${grab ? " is-grabbed" : ""}${
                 flipped ? " is-flipped" : ""
               }`}
+              style={{
+                transform: `rotate(${pose.angle * -0.12}deg) scale(${
+                  grab ? 1.03 : 1
+                })`,
+              }}
               title="Tarik ke mana saja, klik untuk membalik"
             >
               <div className="lanyard-flip">
