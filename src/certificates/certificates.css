@@ -1,6 +1,10 @@
-/* The landing page locks the body for its smooth scroller; this page scrolls. */
+/* index.css locks the body for the landing page's smooth scroller; this page
+   is a plain document and has to scroll. Bundlers may order the two files
+   either way, so the override does not rely on order. */
+html,
 body {
-  overflow: auto;
+  overflow: visible !important;
+  height: auto !important;
 }
 
 .certs-page {
