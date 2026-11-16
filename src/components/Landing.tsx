@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { useContent } from "../context/ContentProvider";
+import Lanyard from "./Lanyard";
 import "./styles/Landing.css";
 
 const Landing = ({ children }: PropsWithChildren) => {
@@ -10,6 +11,7 @@ const Landing = ({ children }: PropsWithChildren) => {
     <>
       <div className="landing-section" id="landingDiv">
         <div className="landing-container">
+          <Lanyard />
           <div className="landing-intro">
             <h2>{greeting}</h2>
             <h1>

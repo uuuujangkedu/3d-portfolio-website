@@ -70,6 +70,11 @@ export const sections: Section[] = [
       { key: "roleIntro", label: "Baris peran", type: "text" },
       { key: "rolePrimary", label: "Kata peran A", type: "text" },
       { key: "roleSecondary", label: "Kata peran B", type: "text" },
+      {
+        key: "photo",
+        label: "Foto lanyard (kosong = foto acak)",
+        type: "image",
+      },
     ],
   },
   {

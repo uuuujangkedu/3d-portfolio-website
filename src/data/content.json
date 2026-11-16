@@ -22,7 +22,8 @@
     "lastName": "FADHILLAH",
     "roleIntro": "Full-Stack &",
     "rolePrimary": "Web",
-    "roleSecondary": "Backend"
+    "roleSecondary": "Backend",
+    "photo": ""
   },
   "about": {
     "title": "About Me",
