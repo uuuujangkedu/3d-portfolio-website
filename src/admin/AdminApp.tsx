@@ -237,7 +237,7 @@ const AdminApp = () => {
 
         <div className="ad-side-foot">
           <a href="/" target="_blank" rel="noreferrer">
-            ↗ Lihat web pengunjung
+            ↗ Web Portfolio
           </a>
           <button type="button" onClick={() => signOut().then(() => setSignedIn(false))}>
             Keluar

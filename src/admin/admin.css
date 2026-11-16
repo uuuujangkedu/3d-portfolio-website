@@ -123,9 +123,13 @@ body {
 }
 
 .ad-side {
+  position: sticky;
+  top: 0;
+  align-self: start;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  height: 100vh;
   padding: 18px 14px;
   background: var(--ad-deep);
   border-right: 1px solid var(--ad-line-soft);
@@ -208,6 +212,8 @@ body {
 
 .ad-side nav {
   display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
   flex-direction: column;
   gap: 2px;
   overflow-y: auto;
@@ -260,7 +266,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: auto;
+  flex: none;
   padding-top: 12px;
   border-top: 1px solid var(--ad-line-soft);
 }
@@ -808,6 +814,10 @@ button:disabled {
   }
 
   .ad-side {
+    position: sticky;
+    top: 0;
+    height: auto;
+    z-index: 6;
     border-right: 0;
     border-bottom: 1px solid var(--ad-line-soft);
   }
@@ -830,6 +840,11 @@ button:disabled {
 
   .ad-side-foot {
     flex-direction: row;
+  }
+
+  .ad-topbar {
+    position: static;
+    justify-content: flex-start;
   }
 
   .ad-split {
