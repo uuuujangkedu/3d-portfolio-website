@@ -289,7 +289,8 @@ body {
 
 .ad-main {
   padding: 18px 24px 40px;
-  max-width: 1180px;
+  width: 100%;
+  max-width: 1560px;
 }
 
 .ad-topbar {
@@ -307,6 +308,14 @@ body {
 
 .ad-page-head {
   margin: 10px 0 22px;
+}
+
+.ad-page-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .ad-page-head h1 {
@@ -363,6 +372,7 @@ body {
   grid-template-columns: 1.35fr 1fr;
   gap: 16px;
   align-items: start;
+  margin-bottom: 16px;
 }
 
 .ad-card-head {
@@ -396,52 +406,157 @@ body {
   white-space: nowrap;
 }
 
-.ad-chart {
+.ad-chip-warn {
+  border-color: rgb(255 196 92 / 0.32);
+  background: rgb(255 196 92 / 0.1);
+  color: #ffc45c;
+}
+
+.ad-map {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.ad-map-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--ad-line);
+  border-radius: 12px;
+  background: var(--ad-sunken);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ad-map-card strong {
+  font-size: 14px;
+}
+
+.ad-map-card span {
+  color: var(--ad-muted);
+  font-size: 12px;
+}
+
+.ad-map-card em {
+  margin-top: 6px;
+  color: var(--ad-accent);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.ad-map-card:hover em,
+.ad-map-card:focus-visible em {
+  opacity: 1;
+}
+
+.ad-map-card:hover {
+  border-color: rgb(94 234 212 / 0.35);
+}
+
+.ad-col {
+  display: grid;
+  gap: 16px;
+}
+
+.ad-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  border: 1px solid var(--ad-line);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 100% 0%, #10343a 0%, transparent 60%),
+    var(--ad-sunken);
+}
+
+.ad-hero > span:first-child {
+  color: var(--ad-muted);
+  font-size: 12px;
+}
+
+.ad-hero strong {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.ad-hero-role {
+  color: var(--ad-accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ad-kv {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin: 16px 0 0;
+  font-size: 13px;
+}
+
+.ad-kv dt {
+  color: var(--ad-muted);
+}
+
+.ad-kv dd {
+  margin: 0;
+}
+
+.ad-checks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ad-checks button {
   display: flex;
   gap: 10px;
-  align-items: flex-end;
-  height: 240px;
-  padding-top: 8px;
-}
-
-.ad-bar {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  justify-content: flex-end;
-}
-
-.ad-bar-value {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ad-accent);
-}
-
-.ad-bar-fill {
   width: 100%;
-  max-width: 54px;
-  min-height: 4px;
-  border-radius: 8px 8px 4px 4px;
-  background: linear-gradient(180deg, var(--ad-accent), #1c7f78);
-  transition: filter 0.15s ease;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
 }
 
-.ad-bar:hover .ad-bar-fill {
-  filter: brightness(1.15);
+.ad-checks button:hover {
+  background: rgb(255 255 255 / 0.03);
 }
 
-.ad-bar-label {
+.ad-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.ad-dot.ok {
+  background: var(--ad-accent);
+  box-shadow: 0 0 0 4px rgb(94 234 212 / 0.14);
+}
+
+.ad-dot.warn {
+  background: #ffc45c;
+  box-shadow: 0 0 0 4px rgb(255 196 92 / 0.14);
+}
+
+.ad-check-detail {
+  margin-left: auto;
   color: var(--ad-muted);
-  font-size: 11px;
-  text-align: center;
-  line-height: 1.2;
+  font-size: 12px;
+  text-align: right;
 }
 
 .ad-list {
