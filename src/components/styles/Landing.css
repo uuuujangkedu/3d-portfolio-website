@@ -209,6 +209,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
+  pointer-events: auto;
   cursor: grab;
 }
 
@@ -292,6 +293,11 @@
 .lanyard-card.is-grabbed {
   cursor: grabbing;
   box-shadow: 0 28px 52px rgb(0 0 0 / 0.65);
+}
+
+.lanyard-card:hover {
+  border-color: rgb(94 234 212 / 0.5);
+  box-shadow: 0 22px 46px rgb(0 0 0 / 0.6);
 }
 
 .lanyard-card img {

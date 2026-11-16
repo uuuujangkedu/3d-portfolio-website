@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useContent } from "../context/ContentProvider";
 
 const MAX_ANGLE = 48;
@@ -20,8 +20,14 @@ const Lanyard = () => {
   const [grab, setGrab] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const swing = useRef<HTMLDivElement>(null);
+  const card = useRef<HTMLDivElement>(null);
   const frame = useRef(0);
   const drag = useRef({ base: 0, from: 0, moved: 0, velocity: 0, angle: 0 });
+
+  const apply = (value: number) => {
+    drag.current.angle = value;
+    setAngle(value);
+  };
 
   // Angle of the pointer seen from the pivot at the top of the strap.
   const pointerAngle = (clientX: number, clientY: number) => {
@@ -32,8 +38,8 @@ const Lanyard = () => {
     return (Math.atan2(dx, dy) * 180) / Math.PI;
   };
 
-  // Spring back, with the momentum carried over from the throw.
-  const swingBack = (velocity: number) => {
+  // Spring back, carrying the momentum of the throw.
+  const swingBack = useCallback((velocity: number) => {
     cancelAnimationFrame(frame.current);
     drag.current.velocity = velocity;
     const tick = () => {
@@ -43,17 +49,44 @@ const Lanyard = () => {
       state.angle += state.velocity;
       setAngle(state.angle);
       if (Math.abs(state.angle) < 0.08 && Math.abs(state.velocity) < 0.08) {
-        setAngle(0);
-        drag.current.angle = 0;
-        drag.current.velocity = 0;
+        apply(0);
+        state.velocity = 0;
         return;
       }
       frame.current = requestAnimationFrame(tick);
     };
     frame.current = requestAnimationFrame(tick);
-  };
+  }, []);
 
   useEffect(() => () => cancelAnimationFrame(frame.current), []);
+
+  // Hit tested from the card's own rectangle, so no overlay can swallow the press.
+  useEffect(() => {
+    const down = (event: PointerEvent) => {
+      if (event.button !== 0) return;
+      const box = card.current?.getBoundingClientRect();
+      if (!box) return;
+      const pad = 12;
+      const inside =
+        event.clientX >= box.left - pad &&
+        event.clientX <= box.right + pad &&
+        event.clientY >= box.top - pad &&
+        event.clientY <= box.bottom + pad;
+      if (!inside) return;
+      event.preventDefault();
+      cancelAnimationFrame(frame.current);
+      drag.current = {
+        base: drag.current.angle,
+        from: pointerAngle(event.clientX, event.clientY),
+        moved: 0,
+        velocity: 0,
+        angle: drag.current.angle,
+      };
+      setGrab(true);
+    };
+    document.addEventListener("pointerdown", down, true);
+    return () => document.removeEventListener("pointerdown", down, true);
+  }, []);
 
   useEffect(() => {
     if (!grab) return;
@@ -62,17 +95,15 @@ const Lanyard = () => {
         pointerAngle(event.clientX, event.clientY) - drag.current.from;
       const next = clamp(drag.current.base + delta);
       drag.current.velocity = next - drag.current.angle;
-      drag.current.angle = next;
       drag.current.moved +=
         Math.abs(event.movementX) + Math.abs(event.movementY);
-      setAngle(next);
+      apply(next);
     };
     const release = () => {
       setGrab(false);
       if (drag.current.moved < 8) {
         setFlipped((value) => !value);
-        setAngle(0);
-        drag.current.angle = 0;
+        apply(0);
         return;
       }
       swingBack(Math.max(-14, Math.min(14, drag.current.velocity)));
@@ -85,25 +116,10 @@ const Lanyard = () => {
       window.removeEventListener("pointerup", release);
       window.removeEventListener("pointercancel", release);
     };
-  }, [grab]);
+  }, [grab, swingBack]);
 
   return (
-    <div
-      className="lanyard"
-      onPointerDown={(event) => {
-        if (event.button !== 0) return;
-        event.preventDefault();
-        cancelAnimationFrame(frame.current);
-        drag.current = {
-          base: angle,
-          from: pointerAngle(event.clientX, event.clientY),
-          moved: 0,
-          velocity: 0,
-          angle,
-        };
-        setGrab(true);
-      }}
-    >
+    <div className="lanyard">
       <div
         className="lanyard-swing"
         ref={swing}
@@ -116,6 +132,7 @@ const Lanyard = () => {
           <div className="lanyard-strap" aria-hidden />
           <span className="lanyard-clip" aria-hidden />
           <div
+            ref={card}
             className={`lanyard-card${grab ? " is-grabbed" : ""}${
               flipped ? " is-flipped" : ""
             }`}
