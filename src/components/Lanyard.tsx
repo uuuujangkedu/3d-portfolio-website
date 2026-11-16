@@ -200,7 +200,10 @@ const Lanyard = () => {
             className="lanyard-strap"
             aria-hidden
             style={{ height: `${strapHeight}px` }}
-          />
+          >
+            <span className="lanyard-band left" />
+            <span className="lanyard-band right" />
+          </div>
           <div className="lanyard-hang">
             <span className="lanyard-clip" aria-hidden />
             <div
