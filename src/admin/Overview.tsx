@@ -1,9 +1,9 @@
-import contentSource from "../data/content.json";
 import { sections } from "../data/schema";
+import type { Content } from "../lib/content";
 import { isRemote } from "../lib/supabase";
 
 type Props = {
-  content: typeof contentSource;
+  content: Content;
   onOpen: (key: string) => void;
 };
 
@@ -31,6 +31,11 @@ const Overview = ({ content, onOpen }: Props) => {
       label: "Pengalaman",
       value: String(content.career.length),
       hint: "Kartu di timeline Career",
+    },
+    {
+      label: "Sertifikat",
+      value: String(content.certificates.length),
+      hint: "Kartu di bagian Certificates",
     },
     {
       label: "Tautan sosial",
@@ -96,6 +101,19 @@ const Overview = ({ content, onOpen }: Props) => {
       key: "whatIDo",
     },
   ];
+
+  // Only meaningful once there is something to check.
+  if (content.certificates.length) {
+    const valid = content.certificates.filter((cert) =>
+      /^https?:\/\//.test(cert.url)
+    ).length;
+    checks.push({
+      label: "Setiap sertifikat punya link kredensial",
+      ok: valid === content.certificates.length,
+      detail: `${valid}/${content.certificates.length} valid`,
+      key: "certificates",
+    });
+  }
 
   const issues = checks.filter((check) => !check.ok).length;
 

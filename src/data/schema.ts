@@ -121,6 +121,18 @@ export const sections: Section[] = [
     ],
   },
   {
+    key: "certificates",
+    label: "Certificates",
+    type: "list",
+    fields: [
+      { key: "title", label: "Nama sertifikat", type: "text" },
+      { key: "issuer", label: "Penerbit", type: "text" },
+      { key: "year", label: "Tahun", type: "text" },
+      { key: "image", label: "Gambar", type: "image" },
+      { key: "url", label: "Link kredensial", type: "text" },
+    ],
+  },
+  {
     key: "techStack",
     label: "Tech stack",
     type: "group",

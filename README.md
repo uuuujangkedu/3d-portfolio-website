@@ -61,6 +61,7 @@ Live site: _add your deployed URL here._
 │   │   ├── styles/            # Section/component CSS files
 │   │   ├── About.tsx
 │   │   ├── Career.tsx
+│   │   ├── Certificates.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Landing.tsx
 │   │   ├── MainContainer.tsx  # Main page composition
@@ -122,7 +123,7 @@ Live site: _add your deployed URL here._
 
 ## Editing content
 
-All page copy lives in one file: `src/data/content.json` (name, landing words, about, career, projects, tech stack, contact links, social icons, resume path, loader initials, browser title). Components read it through `useContent()`, so text changes never require touching `.tsx` files.
+All page copy lives in one file: `src/data/content.json` (name, landing words, about, career, certificates, projects, tech stack, contact links, social icons, resume path, loader initials, browser title). Components read it through `useContent()`, so text changes never require touching `.tsx` files.
 
 The site loads content in this order:
 

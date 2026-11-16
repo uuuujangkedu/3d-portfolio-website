@@ -1,7 +1,18 @@
 import fallback from "../data/content.json";
 import { supabase } from "./supabase";
 
-export type Content = typeof fallback;
+// Lists start empty in content.json, which TypeScript would infer as never[].
+export type Certificate = {
+  title: string;
+  issuer: string;
+  year: string;
+  image: string;
+  url: string;
+};
+
+export type Content = Omit<typeof fallback, "certificates"> & {
+  certificates: Certificate[];
+};
 
 const OVERRIDE_KEY = "portfolio:content";
 const ROW_ID = "main";
