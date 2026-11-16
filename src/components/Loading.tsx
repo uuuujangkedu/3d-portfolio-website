@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
+import content from "../data/content.json";
 
 import Marquee from "react-fast-marquee";
 
@@ -15,8 +16,8 @@ const Loading = ({ percent }: { percent: number }) => {
       setLoaded(true);
       setTimeout(() => {
         setIsLoaded(true);
-      }, 1000);
-    }, 600);
+      }, 250);
+    }, 150);
   }
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 250);
       }
     });
   }, [isLoaded]);
@@ -46,7 +47,7 @@ const Loading = ({ percent }: { percent: number }) => {
     <>
       <div className="loading-header">
         <a href="/#" className="loader-title" data-cursor="disable">
-          AM
+          {content.loader.initials}
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
           <div className="loaderGame-container">
@@ -62,8 +63,11 @@ const Loading = ({ percent }: { percent: number }) => {
       <div className="loading-screen">
         <div className="loading-marquee">
           <Marquee>
-            <span> Full Stack Developer</span> <span>Software Engineer</span>
-            <span> Full Stack Developer</span> <span>Software Engineer</span>
+            {[...content.loader.marqueeWords, ...content.loader.marqueeWords].map(
+              (word, index) => (
+                <span key={index}>{word}</span>
+              )
+            )}
           </Marquee>
         </div>
         <div
