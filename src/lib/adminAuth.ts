@@ -8,6 +8,10 @@ const demoPassword = (import.meta.env.VITE_DEMO_ADMIN_PASSWORD as string) || "ad
 // "password" below ships to every browser. Real protection needs Supabase Auth.
 export const demoMode = !isRemote();
 
+// Shown on the login page so the demo is usable. Safe only because demo mode has
+// no real authentication behind it.
+export const demoCredentials = { email: demoEmail, password: demoPassword };
+
 export async function signIn(email: string, password: string): Promise<void> {
   if (!supabase) {
     const ok =

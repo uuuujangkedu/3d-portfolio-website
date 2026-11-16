@@ -16,7 +16,7 @@ import {
 import { FieldEditor } from "./FieldEditor";
 import Overview from "./Overview";
 import { Field, sections } from "../data/schema";
-import { currentEmail, demoMode, hasSession, signIn, signOut } from "../lib/adminAuth";
+import { currentEmail, demoCredentials, demoMode, hasSession, signIn, signOut } from "../lib/adminAuth";
 import {
   loadContent,
   resetContent,
@@ -48,7 +48,7 @@ const initialsOf = (name: string) =>
     .join("");
 
 const Login = ({ onDone }: { onDone: () => void }) => {
-  const [email, setEmail] = useState(demoMode ? "admin@local" : "");
+  const [email, setEmail] = useState(demoMode ? demoCredentials.email : "");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -99,6 +99,24 @@ const Login = ({ onDone }: { onDone: () => void }) => {
         <button type="submit" className="ad-primary" disabled={busy}>
           {busy ? "Masuk…" : "Masuk"}
         </button>
+
+        {demoMode ? (
+          <div className="ad-login-note">
+            <strong>Catatan — akun demo</strong>
+            <dl>
+              <dt>ID / Email</dt>
+              <dd>{demoCredentials.email}</dd>
+              <dt>Password</dt>
+              <dd>{demoCredentials.password}</dd>
+            </dl>
+            <span>
+              Mode demo tanpa server: kredensial ini ikut terkirim ke browser
+              siapa pun, jadi bukan pengaman. Untuk login sungguhan, isi{" "}
+              <code>VITE_SUPABASE_URL</code> dan{" "}
+              <code>VITE_SUPABASE_ANON_KEY</code>.
+            </span>
+          </div>
+        ) : null}
       </form>
     </div>
   );
