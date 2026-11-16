@@ -8,6 +8,20 @@ type Props = {
   onChange: (value: unknown) => void;
 };
 
+const emptyValue = (field: Field): unknown => {
+  if (field.type === "boolean") return false;
+  if (field.type === "select") return field.options?.[0] ?? "";
+  if (field.type === "strings" || field.type === "imageList") return [];
+  if (field.type === "group") return {};
+  return "";
+};
+
+// A new row starts blank instead of borrowing the last row's text.
+const blankItem = (field: Field): Record<string, unknown> =>
+  Object.fromEntries(
+    (field.fields ?? []).map((child) => [child.key, emptyValue(child)])
+  );
+
 // Every branch spreads the previous value, so keys missing from the schema
 // survive a round trip instead of being dropped on save.
 export const FieldEditor = ({ field, value, onChange }: Props) => {
@@ -77,7 +91,7 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
         <button
           type="button"
           onClick={() =>
-            onChange([...items, structuredClone(items[items.length - 1] ?? {})])
+            onChange([...items, blankItem(field)])
           }
         >
           + Tambah
