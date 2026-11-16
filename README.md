@@ -158,6 +158,8 @@ Saves go to the `site_content` table and every visitor sees them on the next pag
 
 Every image field has an **Upload** button; the URL input next to it still accepts a path (`/images/foo.jpg`) or a full `https://` link.
 
+Picking a file opens a framing editor: drag to pan (after zooming), a zoom slider from 1× to 3×, quarter-turn rotation, and **Reset**. The canvas there is the stored image, so the preview cannot disagree with the result. **Simpan foto** uploads the framed version; **Batal** leaves the field untouched.
+
 - **Demo mode**: the file is downscaled in the browser (max 1200 px, JPEG 0.82) and stored as a data URL in `localStorage`, so it never leaves this browser and is capped at ~400 KB. Large photos can be rejected.
 - **Supabase mode**: the file goes to the public Storage bucket `images` (`supabase/schema.sql` creates it plus read/write policies) and the field stores the public URL. Free tier allows 1 GB storage; keep uploads under a few MB.
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Field } from "../data/schema";
-import { uploadImage } from "../lib/uploadImage";
+import ImageCropper from "./ImageCropper";
 
 type Props = {
   field: Field;
@@ -180,21 +180,20 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
 };
 
 const ImageField = ({ field, value, onChange }: Props) => {
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
+  const [draft, setDraft] = useState<File | null>(null);
 
-  const pick = async (file: File | undefined) => {
-    if (!file) return;
-    setBusy(true);
-    setError("");
-    try {
-      onChange(await uploadImage(file));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setBusy(false);
-    }
-  };
+  if (draft) {
+    return (
+      <ImageCropper
+        file={draft}
+        onCancel={() => setDraft(null)}
+        onDone={(url) => {
+          setDraft(null);
+          onChange(url);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="ad-field">
@@ -205,13 +204,17 @@ const ImageField = ({ field, value, onChange }: Props) => {
           onChange={(e) => onChange(e.target.value)}
           placeholder="/images/namafile.jpg atau https://…"
         />
-        <label className={`ad-upload${busy ? " busy" : ""}`}>
-          {busy ? "Mengunggah…" : "Upload"}
+        <label className="ad-upload">
+          Upload
           <input
             type="file"
             accept="image/*"
             hidden
-            onChange={(e) => pick(e.target.files?.[0])}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = "";
+              if (file) setDraft(file);
+            }}
           />
         </label>
         {value ? (
@@ -220,7 +223,6 @@ const ImageField = ({ field, value, onChange }: Props) => {
           </button>
         ) : null}
       </div>
-      {error ? <span className="ad-field-error">{error}</span> : null}
       {value ? <img className="ad-preview" src={String(value)} alt="" /> : null}
     </div>
   );
