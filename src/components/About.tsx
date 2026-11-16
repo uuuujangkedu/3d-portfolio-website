@@ -6,11 +6,13 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          I am currently co-founder of CallHQ.ai, building real-time voice AI for
-          businesses. I am a technologist at heart with strong business judgment—
-          I enjoy going from product strategy to hands-on engineering. My background
-          spans leadership at Adobe, founding Broki and CallHQ, and shipping
-          full-stack products end to end.
+          I am Muhammad Riszki Fadhillah — a full-stack developer based in
+          Jakarta, studying at University of Darma Persada. I build web
+          applications and REST APIs with JavaScript, TypeScript, PHP, and
+          Python: from Laravel dashboards to Express and Node.js services
+          backed by MySQL or MongoDB. I like turning real problems, like
+          small-business (UMKM) platforms, into working products end to end.
+          Currently open to work — onsite in Jakarta or remote.
         </p>
       </div>
     </div>

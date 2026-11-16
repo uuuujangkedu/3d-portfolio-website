@@ -1,5 +1,6 @@
 import "./styles/Career.css";
 
+// ponytail: replace with real career history when it is written down.
 const Career = () => {
   return (
     <div className="career-section section-container">
@@ -15,58 +16,41 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Co-Founder</h4>
-                <h5>CallHQ.ai</h5>
+                <h4>Full-Stack Developer</h4>
+                <h5>DAYA UMKM · tikum.web.id</h5>
               </div>
               <h3>NOW</h3>
             </div>
             <p>
-              Building CallHQ.ai, a voice AI platform for
-              automating customer calls, support, and conversions.
+              Building a UMKM (small business) platform with Laravel and Blade —
+              store profiles, product catalogs, and dashboards for local sellers.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Adobe</h4>
-                <h5>6+ years · Noida</h5>
+                <h4>Backend Developer</h4>
+                <h5>OpenJob RESTful API</h5>
               </div>
-              <h3>2017–24</h3>
+              <h3>2025</h3>
             </div>
             <p>
-              Senior Lead Software Engineer (Feb 2024 – May 2024). Lead Software
-              Engineer (Feb 2021 – Feb 2024). Software Engineer II (Dec 2017 –
-              Feb 2021): internationalization, globalization, and localization for
-              Adobe Technical Communication Suite; functional and linguistic testing
-              strategy; in-house tooling; collaboration with product and engineering
-              for high-quality localized releases.
+              Designed and shipped a job marketplace REST API on Node.js and
+              Express: authentication, job and application endpoints, request
+              validation, and automated tests against PostgreSQL.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Consultant</h4>
-                <h5>Genpact Headstrong </h5>
+                <h4>Mobile & AI Coursework</h4>
+                <h5>Darma Persada University</h5>
               </div>
-              <h3>2016–17</h3>
+              <h3>2024–26</h3>
             </div>
             <p>
-              Sep 2016 – Nov 2017. Developed and maintained WCF services consumed
-              by the UI; deployment support across environments; NUnit tests and
-              coverage; bug fixes from QA and users; database work.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>Sf Engineer</h4>
-                <h5>Infogain</h5>
-              </div>
-              <h3>2013-16</h3>
-            </div>
-            <p>
-              Software engineering across enterprise projects, contributing to
-              design, development, and delivery of business applications.
+              Flutter mobile app project and an AI-based security project in
+              Python, alongside core computer science coursework.
             </p>
           </div>
         </div>
