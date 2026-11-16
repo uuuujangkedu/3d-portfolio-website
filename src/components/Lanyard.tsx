@@ -45,7 +45,9 @@ const Lanyard = () => {
     if (!box) return 0;
     const dx = clientX - (box.left + box.width / 2);
     const dy = Math.max(40, clientY - box.top);
-    return (Math.atan2(dx, dy) * 180) / Math.PI;
+    // Negated: a CSS rotation turns clockwise, which would move a hanging card
+    // the opposite way to the pointer.
+    return (-Math.atan2(dx, dy) * 180) / Math.PI;
   };
 
   // Spring back to hanging, keeping the momentum of the throw.
