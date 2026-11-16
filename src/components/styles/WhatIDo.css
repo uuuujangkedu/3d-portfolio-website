@@ -208,6 +208,23 @@
   height: 100%;
   overflow: hidden;
 }
+
+/* Collapsed cards fade their text into the frame instead of slicing it mid-line */
+.what-content:not(:hover):not(.what-content-active) .what-content-in {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - 70px),
+    transparent
+  );
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 70px), transparent);
+}
+
+/* Hovered card: never clip, scroll if the admin writes more than fits */
+.what-noTouch:hover .what-content-in,
+.what-content-active .what-content-in {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
 .what-content-in h5 {
   font-weight: 300;
   opacity: 0.5;
