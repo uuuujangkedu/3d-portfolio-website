@@ -257,13 +257,14 @@
     linear-gradient(180deg, #35b3a6, #17756f);
 }
 
-/* Straight sides, tapering only near the clip: five points, not four */
+/* V: both arms lean into the clip and share their last edge, so they meet
+   solidly at the clip while the middle stays open above it */
 .lanyard-band.left {
-  clip-path: polygon(0 0, 49.6% 0, 49.6% 100%, 42% 100%, 0 72%);
+  clip-path: polygon(0 0, 30% 0, 58% 100%, 42% 100%);
 }
 
 .lanyard-band.right {
-  clip-path: polygon(50.4% 0, 100% 0, 100% 72%, 58% 100%, 50.4% 100%);
+  clip-path: polygon(70% 0, 100% 0, 58% 100%, 42% 100%);
   background:
     repeating-linear-gradient(
       62deg,
