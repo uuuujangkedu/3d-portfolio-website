@@ -198,11 +198,11 @@
 
 .lanyard {
   position: absolute;
-  left: 9%;
+  left: 12%;
   /* Hangs above the hero text: bottom edge pinned above the greeting */
   bottom: calc(50% + 60px);
   z-index: 10;
-  width: clamp(96px, 21vh, 250px);
+  width: clamp(100px, 26vh, 300px);
 }
 
 .lanyard-swing {
@@ -485,7 +485,7 @@ h2.landing-info-h2 {
   }
 
   .landing-intro {
-    top: 57%;
+    top: 60%;
     left: auto;
     right: 66%;
     transform: translate(0%, -50%);
@@ -504,7 +504,7 @@ h2.landing-info-h2 {
 
 @media screen and (min-width: 1200px) {
   .landing-intro {
-    top: 57%;
+    top: 60%;
     left: auto;
     right: 70%;
     transform: translate(0%, -50%);
