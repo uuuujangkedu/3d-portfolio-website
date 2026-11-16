@@ -10,11 +10,9 @@ import {
   CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
-import content from "../data/content.json";
+import { useContent } from "../context/ContentProvider";
 
 const textureLoader = new THREE.TextureLoader();
-const imageUrls = content.techStack.images;
-const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
@@ -117,7 +115,12 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 }
 
 const TechStack = () => {
+  const { techStack } = useContent();
   const [isActive, setIsActive] = useState(false);
+  const textures = useMemo(
+    () => techStack.images.map((url) => textureLoader.load(url)),
+    [techStack.images]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -156,11 +159,11 @@ const TechStack = () => {
           clearcoat: 0.1,
         })
     );
-  }, []);
+  }, [textures]);
 
   return (
     <div className="techstack">
-      <h2> {content.techStack.title}</h2>
+      <h2> {techStack.title}</h2>
 
       <Canvas
         shadows

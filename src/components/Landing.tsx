@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
-import content from "../data/content.json";
+import { useContent } from "../context/ContentProvider";
 import "./styles/Landing.css";
 
-const { greeting, firstName, lastName, roleIntro, rolePrimary, roleSecondary } =
-  content.landing;
-
 const Landing = ({ children }: PropsWithChildren) => {
+  const { greeting, firstName, lastName, roleIntro, rolePrimary, roleSecondary } =
+    useContent().landing;
+
   return (
     <>
       <div className="landing-section" id="landingDiv">

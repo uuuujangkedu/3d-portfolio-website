@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
-import content from "../data/content.json";
-
+import { useContent } from "../context/ContentProvider";
 import Marquee from "react-fast-marquee";
 
 const Loading = ({ percent }: { percent: number }) => {
   const { setIsLoading } = useLoading();
+  const { loader } = useContent();
   const [loaded, setLoaded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -47,7 +47,7 @@ const Loading = ({ percent }: { percent: number }) => {
     <>
       <div className="loading-header">
         <a href="/#" className="loader-title" data-cursor="disable">
-          {content.loader.initials}
+          {loader.initials}
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
           <div className="loaderGame-container">
@@ -63,7 +63,7 @@ const Loading = ({ percent }: { percent: number }) => {
       <div className="loading-screen">
         <div className="loading-marquee">
           <Marquee>
-            {[...content.loader.marqueeWords, ...content.loader.marqueeWords].map(
+            {[...loader.marqueeWords, ...loader.marqueeWords].map(
               (word, index) => (
                 <span key={index}>{word}</span>
               )

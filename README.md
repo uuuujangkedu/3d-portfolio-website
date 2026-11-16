@@ -122,26 +122,41 @@ Live site: _add your deployed URL here._
 
 ## Editing content
 
-All page copy lives in one file: `src/data/content.json` (name, landing words, about, career, projects, tech stack, contact links, social icons, resume path, loader initials, browser title). Components read from it, so no `.tsx` edits are needed for text changes.
+All page copy lives in one file: `src/data/content.json` (name, landing words, about, career, projects, tech stack, contact links, social icons, resume path, loader initials, browser title). Components read it through `useContent()`, so text changes never require touching `.tsx` files.
 
-## Admin panel
+The site loads content in this order:
 
-A Decap CMS panel is mounted at `/admin` (`public/admin/`). It writes straight to `src/data/content.json` and uploads images to `public/images/uploads`.
+1. Supabase row `site_content` / `main`, when `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are set.
+2. Otherwise a browser-local override written by the admin dashboard.
+3. Otherwise the `content.json` bundled at build time.
 
-### Locally
+## Admin dashboard
 
-1. `npm run dev` — site at http://localhost:5173
-2. `npm run cms` — local git proxy (keep it running, uses `local_backend: true`)
-3. Open http://localhost:5173/admin/ and edit. Saves are written to the working tree; commit them yourself.
+Separate entry point at `admin.html` (so visitors never download the admin bundle), listing every content section with add / edit / delete / reorder and a save button.
 
-### In production
+### Demo mode (no backend)
 
-The GitHub backend needs an OAuth handshake, because a browser cannot hold a client secret. Pick one:
+```bash
+npm run dev
+```
 
-- **Netlify (easiest)** — enable Identity + Git Gateway, invite your own email, then switch the backend in `public/admin/config.yml` to `name: git-gateway` and drop `local_backend`.
-- **Vercel or any other host** — create a GitHub OAuth app, deploy a tiny relay at `/api/auth` + `/api/callback`, and set `base_url` in `config.yml` to that relay. The relay must whitelist the `uuuujangkedu` GitHub login and reject anyone else, otherwise the panel is open to the internet.
+Open `/admin.html`. Default credentials are `admin@local` / `admin` (override with `VITE_DEMO_ADMIN_EMAIL`, `VITE_DEMO_ADMIN_PASSWORD` in `.env.local`).
 
-Never hardcode a password or GitHub token in the front end: everything in `public/` is readable by anyone.
+**This is not security.** There is no server, so the "password" ships inside the browser bundle and edits only exist in that browser's `localStorage` — the public site is unchanged for everyone else. Use it to try the interface only.
+
+### Real mode (Supabase: auth + database)
+
+1. Create a free Supabase project.
+2. SQL editor → run `supabase/schema.sql`.
+3. Authentication → Users → add your admin email + password. Turn **public signups off**, so only accounts you create can log in.
+4. Copy `.env.example` to `.env.local` and fill `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` (Project Settings → API). Never put the `service_role` key in the front end.
+5. `npm run dev`, open `/admin.html`, log in with your email + password, edit, save.
+
+Saves go to the `site_content` table and every visitor sees them on the next page load — no rebuild, no redeploy. Tighten `schema.sql` to `auth.uid() = 'YOUR-USER-UUID'` once you know your user id, so a second account could never write.
+
+### Hosting note
+
+`admin.html` is a real file, so `https://your-domain/admin.html` works as-is. A shorter `/admin` URL needs a rewrite rule on your host (Vercel `rewrites`, Netlify `_redirects`).
 
 ## GSAP License Note
 
@@ -156,7 +171,7 @@ Read official installation guidance here: [GSAP Installation Docs](https://gsap.
 
 You can adapt this portfolio to your own profile by updating the following areas:
 
-- **Content sections**: edit `src/data/content.json` (single source of truth), or use the `/admin` panel.
+- **Content sections**: edit `src/data/content.json` (build-time default), or use the admin dashboard at `/admin.html`.
 - **Component layout**: markup lives in `src/components/` (`About.tsx`, `Career.tsx`, `Work.tsx`, …) if you need structural changes.
 - **Styling**: Modify component styles in `src/components/styles/` and global styles in `src/index.css` / `src/App.css`.
 - **3D scene behavior**: Adjust scene logic in `src/components/Character/` and related utilities.

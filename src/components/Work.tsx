@@ -2,11 +2,10 @@ import { useState, useCallback } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
-import content from "../data/content.json";
-
-const projects = content.work;
+import { useContent } from "../context/ContentProvider";
 
 const Work = () => {
+  const projects = useContent().work;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 

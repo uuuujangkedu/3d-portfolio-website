@@ -1,10 +1,9 @@
 import { MdArrowOutward, MdCopyright } from "react-icons/md";
-import content from "../data/content.json";
+import { useContent } from "../context/ContentProvider";
 import "./styles/Contact.css";
 
-const { contact } = content;
-
 const Contact = () => {
+  const { contact } = useContent();
   return (
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">

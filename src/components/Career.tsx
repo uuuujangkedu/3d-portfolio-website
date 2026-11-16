@@ -1,7 +1,8 @@
-import content from "../data/content.json";
+import { useContent } from "../context/ContentProvider";
 import "./styles/Career.css";
 
 const Career = () => {
+  const { career } = useContent();
   return (
     <div className="career-section section-container">
       <div className="career-container">
@@ -13,7 +14,7 @@ const Career = () => {
           <div className="career-timeline">
             <div className="career-dot"></div>
           </div>
-          {content.career.map((job) => (
+          {career.map((job) => (
             <div className="career-info-box" key={job.company + job.period}>
               <div className="career-info-in">
                 <div className="career-role">

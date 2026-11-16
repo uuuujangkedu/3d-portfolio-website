@@ -1,13 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import content from "./data/content.json";
+import { ContentProvider } from "./context/ContentProvider";
 import "./index.css";
-
-document.title = content.seo.title;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <ContentProvider>
+      <App />
+    </ContentProvider>
   </StrictMode>
 );

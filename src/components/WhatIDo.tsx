@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
 import "./styles/WhatIDo.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import content from "../data/content.json";
-
-const { whatIDo } = content;
+import { useContent } from "../context/ContentProvider";
 
 const WhatIDo = () => {
+  const { whatIDo } = useContent();
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;

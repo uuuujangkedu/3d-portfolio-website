@@ -4,9 +4,7 @@ import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
 import { useEffect } from "react";
 import HoverLinks from "./HoverLinks";
-import content from "../data/content.json";
-
-const { social } = content;
+import { useContent } from "../context/ContentProvider";
 
 const icons: Record<string, ComponentType> = {
   github: FaGithub,
@@ -16,6 +14,7 @@ const icons: Record<string, ComponentType> = {
 };
 
 const SocialIcons = () => {
+  const { social } = useContent();
   useEffect(() => {
     const social = document.getElementById("social") as HTMLElement;
 

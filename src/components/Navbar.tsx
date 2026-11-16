@@ -3,14 +3,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-import content from "../data/content.json";
+import { useContent } from "../context/ContentProvider";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
-  const { navbar } = content;
+  const { navbar } = useContent();
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
