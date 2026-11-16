@@ -86,30 +86,68 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
     );
   }
 
-  if (field.type === "strings" || field.type === "imageList") {
+  if (field.type === "imageList") {
     const list = (value ?? []) as string[];
-    const isImage = field.type === "imageList";
+    const put = (index: number, next: string) =>
+      onChange(list.map((v, i) => (i === index ? next : v)));
+    const move = (from: number, to: number) => {
+      if (to < 0 || to >= list.length) return;
+      const next = [...list];
+      [next[from], next[to]] = [next[to], next[from]];
+      onChange(next);
+    };
+    return (
+      <fieldset className="ad-fieldset">
+        <legend>
+          {field.label} <span className="ad-count">{list.length}</span>
+        </legend>
+        {list.map((entry, index) => (
+          <div className="ad-item" key={index}>
+            <div className="ad-item-head">
+              <strong>Gambar {index + 1}</strong>
+              <span>
+                <button type="button" onClick={() => move(index, index - 1)}>
+                  ↑
+                </button>
+                <button type="button" onClick={() => move(index, index + 1)}>
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  className="ad-danger"
+                  onClick={() => onChange(list.filter((_, i) => i !== index))}
+                >
+                  Hapus
+                </button>
+              </span>
+            </div>
+            <ImageField
+              field={{ key: "", label: "", type: "image" }}
+              value={entry}
+              onChange={(next) => put(index, String(next))}
+            />
+          </div>
+        ))}
+        <button type="button" onClick={() => onChange([...list, ""])}>
+          + Tambah
+        </button>
+      </fieldset>
+    );
+  }
+
+  if (field.type === "strings") {
+    const list = (value ?? []) as string[];
     return (
       <fieldset className="ad-fieldset">
         <legend>{field.label}</legend>
         {list.map((entry, index) => (
           <div className="ad-row" key={index}>
-            {isImage ? (
-              <ImageField
-                field={{ key: "", label: "", type: "image" }}
-                value={entry}
-                onChange={(next) =>
-                  onChange(list.map((v, i) => (i === index ? String(next) : v)))
-                }
-              />
-            ) : (
-              <input
-                value={entry}
-                onChange={(e) =>
-                  onChange(list.map((v, i) => (i === index ? e.target.value : v)))
-                }
-              />
-            )}
+            <input
+              value={entry}
+              onChange={(e) =>
+                onChange(list.map((v, i) => (i === index ? e.target.value : v)))
+              }
+            />
             <button
               type="button"
               className="ad-danger"
@@ -197,7 +235,7 @@ const ImageField = ({ field, value, onChange }: Props) => {
 
   return (
     <div className="ad-field">
-      <span>{field.label}</span>
+      {field.label ? <span>{field.label}</span> : null}
       <div className="ad-row">
         <input
           value={String(value ?? "")}

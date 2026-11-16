@@ -710,10 +710,27 @@ select:focus {
   font-size: 14px;
 }
 
-.ad-row {
+.ad-item-head span {
   display: flex;
   gap: 8px;
+}
+
+.ad-item .ad-field:last-child,
+.ad-item .ad-fieldset:last-child {
+  margin-bottom: 0;
+}
+
+.ad-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   margin-bottom: 8px;
+}
+
+/* Buttons sit next to a taller field, so they must not stretch with it */
+.ad-row > button,
+.ad-row > .ad-upload {
+  flex: none;
 }
 
 .ad-row input {
@@ -803,7 +820,9 @@ button:disabled {
 
 .ad-preview {
   margin-top: 8px;
-  max-width: 180px;
+  max-width: 160px;
+  max-height: 160px;
+  object-fit: cover;
   border: 1px solid var(--ad-line);
   border-radius: 10px;
 }
