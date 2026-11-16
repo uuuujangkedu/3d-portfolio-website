@@ -214,7 +214,6 @@
 
 .lanyard-swing {
   transform-origin: top center;
-  transition: transform 0.85s cubic-bezier(0.2, 1.5, 0.35, 1);
 }
 
 .lanyard-idle {
@@ -266,7 +265,28 @@
   box-shadow: 0 18px 40px rgb(0 0 0 / 0.55);
   cursor: grab;
   touch-action: none;
+  perspective: 900px;
   transition: box-shadow 0.3s;
+}
+
+.lanyard-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.1, 0.2, 1);
+}
+
+.lanyard-card.is-flipped .lanyard-flip {
+  transform: rotateY(180deg);
+}
+
+.lanyard-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .lanyard-card.is-grabbed {
@@ -282,12 +302,59 @@
   filter: saturate(0.92) contrast(1.04);
 }
 
-.lanyard-card::after {
+.lanyard-face::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, transparent 48%, rgb(5 8 16 / 0.94));
   pointer-events: none;
+  z-index: 1;
+}
+
+.lanyard-back::after {
+  display: none;
+}
+
+.lanyard-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  text-align: center;
+  background: radial-gradient(circle at 30% 15%, #1d3d44, #0b1219 72%);
+}
+
+.lanyard-back-mark {
+  color: var(--accentColor);
+  font-size: clamp(24px, 4.6vh, 50px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.lanyard-back strong {
+  font-size: clamp(8px, 1.05vh, 11px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.lanyard-back > span:not(.lanyard-back-mark) {
+  color: #9fb0c3;
+  font-size: clamp(7px, 0.95vh, 10px);
+}
+
+.lanyard-back em {
+  margin-top: 2px;
+  color: var(--accentColor);
+  font-size: clamp(6px, 0.85vh, 9px);
+  font-style: normal;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .lanyard-fallback {
