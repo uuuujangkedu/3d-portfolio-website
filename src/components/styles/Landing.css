@@ -203,6 +203,9 @@
   bottom: calc(50% + 60px);
   z-index: 10;
   width: clamp(100px, 26vh, 300px);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
 .lanyard-swing {
@@ -336,8 +339,13 @@
 }
 
 @media screen and (max-width: 1024px) {
+  /* Phones and tablets: small badge beside the greeting, still draggable */
   .lanyard {
-    display: none;
+    top: 78px;
+    right: 4%;
+    left: auto;
+    bottom: auto;
+    width: clamp(58px, 12vh, 92px);
   }
 }
 
