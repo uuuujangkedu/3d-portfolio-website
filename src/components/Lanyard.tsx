@@ -17,7 +17,7 @@ const clamp = (value: number, min: number, max: number) =>
 // Matches the resting strap height, so stretching keeps it joined to the clip.
 const strapBase = () => {
   const height = window.innerHeight || 800;
-  return clamp(height * 0.14, 80, 210);
+  return clamp(height * 0.18, 100, 280);
 };
 
 const Lanyard = () => {
