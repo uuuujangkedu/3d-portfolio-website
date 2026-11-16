@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useContent } from "../context/ContentProvider";
 import { useLoading } from "../context/LoadingProvider";
 
@@ -14,11 +14,10 @@ const randomPhoto = () =>
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
-// Matches the resting strap height, so stretching keeps it joined to the clip.
-const strapBase = () => {
-  const height = window.innerHeight || 800;
-  return clamp(height * 0.18, 100, 280);
-};
+// Used until the greeting has been measured, and on narrow screens where the
+// greeting sits above the lanyard instead of beside it.
+const strapFallback = () =>
+  clamp((window.innerHeight || 800) * 0.18, 100, 280);
 
 const Lanyard = () => {
   const { firstName, lastName, rolePrimary, roleSecondary, photo } =
@@ -27,6 +26,7 @@ const Lanyard = () => {
   const [src] = useState(() => photo || randomPhoto());
   const [broken, setBroken] = useState(false);
   const [pose, setPose] = useState({ angle: 0, stretch: 0 });
+  const [strap, setStrap] = useState(strapFallback);
   const [grab, setGrab] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const swing = useRef<HTMLDivElement>(null);
@@ -183,7 +183,34 @@ const Lanyard = () => {
     };
   }, [grab, paint, settle]);
 
-  const strapHeight = Math.max(22, strapBase() + pose.stretch);
+  // As long as the gap to the greeting allows: the longest strap that still
+  // leaves the card above "Hello! I'm".
+  useLayoutEffect(() => {
+    const measure = () => {
+      const pivot = swing.current?.getBoundingClientRect();
+      const intro = document
+        .querySelector(".landing-intro")
+        ?.getBoundingClientRect();
+      const height = card.current?.getBoundingClientRect().height ?? 0;
+      if (!pivot || !intro || !height || intro.top <= pivot.top) {
+        setStrap(strapFallback());
+        return;
+      }
+      const room = intro.top - 18 - pivot.top - 26 - height;
+      setStrap(clamp(room, 90, clamp(window.innerHeight * 0.42, 140, 520)));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    // The hero copy animates in, so measure once more after it has landed.
+    const settleTimer = window.setTimeout(measure, 1500);
+    document.fonts?.ready.then(measure).catch(() => {});
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.clearTimeout(settleTimer);
+    };
+  }, []);
+
+  const strapHeight = Math.max(22, strap + pose.stretch);
 
   return (
     <div className="lanyard">
