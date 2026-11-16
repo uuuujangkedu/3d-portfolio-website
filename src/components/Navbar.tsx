@@ -3,12 +3,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import content from "../data/content.json";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
+  const { navbar } = content;
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -43,33 +45,25 @@ const Navbar = () => {
     <>
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
-          MRF
+          {navbar.initials}
         </a>
         <a
-          href="https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
+          href={navbar.connectUrl}
           className="navbar-connect"
           data-cursor="disable"
           target="_blank"
           rel="noreferrer"
         >
-          linkedin.com/in/muhammad-riszki-fadhillah
+          {navbar.connectLabel}
         </a>
         <ul>
-          <li>
-            <a data-href="#about" href="#about">
-              <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#work" href="#work">
-              <HoverLinks text="WORK" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#contact" href="#contact">
-              <HoverLinks text="CONTACT" />
-            </a>
-          </li>
+          {navbar.links.map((link) => (
+            <li key={link.href}>
+              <a data-href={link.href} href={link.href}>
+                <HoverLinks text={link.label} />
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 

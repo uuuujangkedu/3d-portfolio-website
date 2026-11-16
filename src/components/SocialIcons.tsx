@@ -1,8 +1,19 @@
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
+import type { ComponentType } from "react";
 import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
 import { useEffect } from "react";
 import HoverLinks from "./HoverLinks";
+import content from "../data/content.json";
+
+const { social } = content;
+
+const icons: Record<string, ComponentType> = {
+  github: FaGithub,
+  linkedin: FaLinkedinIn,
+  instagram: FaInstagram,
+  youtube: FaYoutube,
+};
 
 const SocialIcons = () => {
   useEffect(() => {
@@ -54,37 +65,30 @@ const SocialIcons = () => {
   return (
     <div className="icons-section">
       <div className="social-icons" data-cursor="icons" id="social">
-        <span>
-          <a
-            href="https://github.com/uuuujangkedu"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaGithub />
-          </a>
-        </span>
-        <span>
-          <a
-            href="https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaLinkedinIn />
-          </a>
-        </span>
-        {/* ponytail: more icons go here (Instagram, YouTube) — nothing else to link yet */}
+        {social.icons.map((item) => {
+          const Icon = icons[item.icon] ?? FaGithub;
+          return (
+            <span key={item.url}>
+              <a href={item.url} target="_blank" rel="noreferrer">
+                <Icon />
+              </a>
+            </span>
+          );
+        })}
       </div>
-      <a
-        className="resume-button"
-        href="/CV.pdf"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <HoverLinks text="RESUME" />
-        <span>
-          <TbNotes />
-        </span>
-      </a>
+      {social.showResume && (
+        <a
+          className="resume-button"
+          href={social.resume}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <HoverLinks text="RESUME" />
+          <span>
+            <TbNotes />
+          </span>
+        </a>
+      )}
     </div>
   );
 };

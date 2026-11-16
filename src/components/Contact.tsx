@@ -1,57 +1,56 @@
 import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import content from "../data/content.json";
 import "./styles/Contact.css";
+
+const { contact } = content;
 
 const Contact = () => {
   return (
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">
-        <h3>Contact</h3>
+        <h3>{contact.heading}</h3>
         <div className="contact-flex">
           <div className="contact-box">
-            <h4>Connect</h4>
+            <h4>{contact.connectHeading}</h4>
             <p>
               <a
-                href="https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
+                href={contact.connectLink.url}
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="disable"
               >
-                LinkedIn — Muhammad Riszki Fadhillah
+                {contact.connectLink.label}
               </a>
             </p>
-            <h4>Education</h4>
-            <p>University of Darma Persada, Jakarta Raya — present</p>
-            <h4>Status</h4>
-            <p>Open to work · Jakarta Raya · hybrid or remote</p>
+            <h4>{contact.educationHeading}</h4>
+            {contact.education.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+            <h4>{contact.statusHeading}</h4>
+            <p>{contact.status}</p>
           </div>
           <div className="contact-box">
-            <h4>Social</h4>
-            <a
-              href="https://github.com/uuuujangkedu"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              GitHub <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              LinkedIn <MdArrowOutward />
-            </a>
+            <h4>{contact.socialHeading}</h4>
+            {contact.socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.url}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="disable"
+                className="contact-social"
+              >
+                {social.label} <MdArrowOutward />
+              </a>
+            ))}
           </div>
           <div className="contact-box">
             <h2>
               Designed and Developed <br /> by{" "}
-              <span>Muhammad Riszki Fadhillah</span>
+              <span>{contact.creditName}</span>
             </h2>
             <h5>
-              <MdCopyright /> 2026
+              <MdCopyright /> {contact.year}
             </h5>
           </div>
         </div>

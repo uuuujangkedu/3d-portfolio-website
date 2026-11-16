@@ -2,38 +2,9 @@ import { useState, useCallback } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import content from "../data/content.json";
 
-// ponytail: images are placeholders — drop real screenshots into /images and swap the paths.
-const projects = [
-  {
-    title: "DAYA UMKM",
-    category: "UMKM Platform",
-    tools: "Laravel, Blade, PHP, MySQL",
-    image: "/images/placeholder.webp",
-    link: "https://github.com/uuuujangkedu/DAYA-UMKM",
-  },
-  {
-    title: "Titik UMKM",
-    category: "Small Business Directory",
-    tools: "Laravel, Blade, Database Design",
-    image: "/images/placeholder.webp",
-    link: "https://github.com/uuuujangkedu/Titik-UMKM",
-  },
-  {
-    title: "OpenJob API",
-    category: "RESTful API for Job Marketplace",
-    tools: "Node.js, Express, PostgreSQL, Automated Tests",
-    image: "/images/placeholder.webp",
-    link: "https://github.com/uuuujangkedu/Projek-akhir-OpenJob-RESTful-API-Versi-2",
-  },
-  {
-    title: "Mobile Computing",
-    category: "Flutter Mobile Application",
-    tools: "Dart, Flutter, Mobile UI",
-    image: "/images/placeholder.webp",
-    link: "https://github.com/uuuujangkedu/UAS_MOBILE-COMPUTING",
-  },
-];
+const projects = content.work;
 
 const Work = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

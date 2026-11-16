@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
+import content from "./data/content.json";
 import "./index.css";
+
+document.title = content.seo.title;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

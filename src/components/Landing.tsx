@@ -1,5 +1,9 @@
 import { PropsWithChildren } from "react";
+import content from "../data/content.json";
 import "./styles/Landing.css";
+
+const { greeting, firstName, lastName, roleIntro, rolePrimary, roleSecondary } =
+  content.landing;
 
 const Landing = ({ children }: PropsWithChildren) => {
   return (
@@ -7,22 +11,22 @@ const Landing = ({ children }: PropsWithChildren) => {
       <div className="landing-section" id="landingDiv">
         <div className="landing-container">
           <div className="landing-intro">
-            <h2>Hello! I'm</h2>
+            <h2>{greeting}</h2>
             <h1>
-              MUHAMMAD RISZKI
+              {firstName}
               <br />
-              <span>FADHILLAH</span>
+              <span>{lastName}</span>
             </h1>
           </div>
           <div className="landing-info">
-            <h3>Full-Stack &</h3>
+            <h3>{roleIntro}</h3>
             <h2 className="landing-info-h2">
-              <div className="landing-h2-1">Web</div>
-              <div className="landing-h2-2">Backend</div>
+              <div className="landing-h2-1">{rolePrimary}</div>
+              <div className="landing-h2-2">{roleSecondary}</div>
             </h2>
             <h2>
-              <div className="landing-h2-info">Backend</div>
-              <div className="landing-h2-info-1">Web</div>
+              <div className="landing-h2-info">{roleSecondary}</div>
+              <div className="landing-h2-info-1">{rolePrimary}</div>
             </h2>
           </div>
         </div>

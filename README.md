@@ -120,6 +120,29 @@ Live site: _add your deployed URL here._
 - `npm run lint`  
   Runs ESLint checks across the project.
 
+## Editing content
+
+All page copy lives in one file: `src/data/content.json` (name, landing words, about, career, projects, tech stack, contact links, social icons, resume path, loader initials, browser title). Components read from it, so no `.tsx` edits are needed for text changes.
+
+## Admin panel
+
+A Decap CMS panel is mounted at `/admin` (`public/admin/`). It writes straight to `src/data/content.json` and uploads images to `public/images/uploads`.
+
+### Locally
+
+1. `npm run dev` — site at http://localhost:5173
+2. `npm run cms` — local git proxy (keep it running, uses `local_backend: true`)
+3. Open http://localhost:5173/admin/ and edit. Saves are written to the working tree; commit them yourself.
+
+### In production
+
+The GitHub backend needs an OAuth handshake, because a browser cannot hold a client secret. Pick one:
+
+- **Netlify (easiest)** — enable Identity + Git Gateway, invite your own email, then switch the backend in `public/admin/config.yml` to `name: git-gateway` and drop `local_backend`.
+- **Vercel or any other host** — create a GitHub OAuth app, deploy a tiny relay at `/api/auth` + `/api/callback`, and set `base_url` in `config.yml` to that relay. The relay must whitelist the `uuuujangkedu` GitHub login and reject anyone else, otherwise the panel is open to the internet.
+
+Never hardcode a password or GitHub token in the front end: everything in `public/` is readable by anyone.
+
 ## GSAP License Note
 
 This project uses the standard `gsap` package, including bonus plugins now available in the core package.
@@ -133,8 +156,8 @@ Read official installation guidance here: [GSAP Installation Docs](https://gsap.
 
 You can adapt this portfolio to your own profile by updating the following areas:
 
-- **Content sections**: Edit files in `src/components/` such as `About.tsx`, `Career.tsx`, `WhatIDo.tsx`, and `Work.tsx`.
-- **Data source**: Update static values in files under `src/data/`.
+- **Content sections**: edit `src/data/content.json` (single source of truth), or use the `/admin` panel.
+- **Component layout**: markup lives in `src/components/` (`About.tsx`, `Career.tsx`, `Work.tsx`, …) if you need structural changes.
 - **Styling**: Modify component styles in `src/components/styles/` and global styles in `src/index.css` / `src/App.css`.
 - **3D scene behavior**: Adjust scene logic in `src/components/Character/` and related utilities.
 - **Animations**: Tweak GSAP utilities under `src/components/utils/`.

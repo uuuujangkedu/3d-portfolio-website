@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import "./styles/WhatIDo.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import content from "../data/content.json";
+
+const { whatIDo } = content;
 
 const WhatIDo = () => {
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -87,21 +90,16 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>WEB DEVELOPMENT</h3>
-              <h4>Full-Stack Web Applications</h4>
-              <p>
-                I build complete web apps — from Laravel and React front ends to
-                the database behind them — for small businesses, dashboards, and
-                internal tools.
-              </p>
+              <h3>{whatIDo[0].title}</h3>
+              <h4>{whatIDo[0].subtitle}</h4>
+              <p>{whatIDo[0].description}</p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">React &amp; TypeScript</div>
-                <div className="what-tags">Laravel &amp; Blade</div>
-                <div className="what-tags">Express</div>
-                <div className="what-tags">Responsive UI</div>
-                <div className="what-tags">Tailwind / CSS</div>
-                <div className="what-tags">Git &amp; deployment</div>
+                {whatIDo[0].tags.map((tag) => (
+                  <div className="what-tags" key={tag}>
+                    {tag}
+                  </div>
+                ))}
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -125,22 +123,16 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>API &amp; DATA</h3>
-              <h4>Backend Services that Hold Up</h4>
-              <p>
-                The part users never see: REST endpoints, authentication, data
-                models, validation, and tests — built on Node.js, PHP, or Python
-                depending on the job.
-              </p>
+              <h3>{whatIDo[1].title}</h3>
+              <h4>{whatIDo[1].subtitle}</h4>
+              <p>{whatIDo[1].description}</p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Express</div>
-                <div className="what-tags">PHP &amp; Laravel</div>
-                <div className="what-tags">Python</div>
-                <div className="what-tags">MySQL &amp; PostgreSQL</div>
-                <div className="what-tags">MongoDB</div>
-                <div className="what-tags">REST API design</div>
+                {whatIDo[1].tags.map((tag) => (
+                  <div className="what-tags" key={tag}>
+                    {tag}
+                  </div>
+                ))}
               </div>
               <div className="what-arrow"></div>
             </div>

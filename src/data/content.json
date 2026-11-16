@@ -1,0 +1,156 @@
+{
+  "seo": {
+    "title": "Muhammad Riszki Fadhillah — Full-Stack Developer"
+  },
+  "loader": {
+    "initials": "MRF",
+    "marqueeWords": ["Full Stack Developer", "Software Engineer"]
+  },
+  "navbar": {
+    "initials": "MRF",
+    "connectUrl": "https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/",
+    "connectLabel": "linkedin.com/in/muhammad-riszki-fadhillah",
+    "links": [
+      { "label": "ABOUT", "href": "#about" },
+      { "label": "WORK", "href": "#work" },
+      { "label": "CONTACT", "href": "#contact" }
+    ]
+  },
+  "landing": {
+    "greeting": "Hello! I'm",
+    "firstName": "MUHAMMAD RISZKI",
+    "lastName": "FADHILLAH",
+    "roleIntro": "Full-Stack &",
+    "rolePrimary": "Web",
+    "roleSecondary": "Backend"
+  },
+  "about": {
+    "title": "About Me",
+    "paragraph": "I am Muhammad Riszki Fadhillah — a full-stack developer based in Jakarta, studying at University of Darma Persada. I build web applications and REST APIs with JavaScript, TypeScript, PHP, and Python: from Laravel dashboards to Express and Node.js services backed by MySQL or MongoDB. I like turning real problems, like small-business (UMKM) platforms, into working products end to end. Currently open to work — onsite in Jakarta or remote."
+  },
+  "whatIDo": [
+    {
+      "title": "WEB DEVELOPMENT",
+      "subtitle": "Full-Stack Web Applications",
+      "description": "I build complete web apps — from Laravel and React front ends to the database behind them — for small businesses, dashboards, and internal tools.",
+      "tags": [
+        "React & TypeScript",
+        "Laravel & Blade",
+        "Express",
+        "Responsive UI",
+        "Tailwind / CSS",
+        "Git & deployment"
+      ]
+    },
+    {
+      "title": "API & DATA",
+      "subtitle": "Backend Services that Hold Up",
+      "description": "The part users never see: REST endpoints, authentication, data models, validation, and tests — built on Node.js, PHP, or Python depending on the job.",
+      "tags": [
+        "Node.js",
+        "Express",
+        "PHP & Laravel",
+        "Python",
+        "MySQL & PostgreSQL",
+        "MongoDB",
+        "REST API design"
+      ]
+    }
+  ],
+  "career": [
+    {
+      "role": "Full-Stack Developer",
+      "company": "DAYA UMKM · tikum.web.id",
+      "period": "NOW",
+      "description": "Building a UMKM (small business) platform with Laravel and Blade — store profiles, product catalogs, and dashboards for local sellers."
+    },
+    {
+      "role": "Backend Developer",
+      "company": "OpenJob RESTful API",
+      "period": "2025",
+      "description": "Designed and shipped a job marketplace REST API on Node.js and Express: authentication, job and application endpoints, request validation, and automated tests."
+    },
+    {
+      "role": "Mobile & AI Coursework",
+      "company": "Darma Persada University",
+      "period": "2024–26",
+      "description": "Flutter mobile app project and an AI-based security project in Python, alongside core computer science coursework."
+    }
+  ],
+  "work": [
+    {
+      "title": "DAYA UMKM",
+      "category": "UMKM Platform",
+      "tools": "Laravel, Blade, PHP, MySQL",
+      "image": "/images/placeholder.webp",
+      "link": "https://github.com/uuuujangkedu/DAYA-UMKM"
+    },
+    {
+      "title": "Titik UMKM",
+      "category": "Small Business Directory",
+      "tools": "Laravel, Blade, Database Design",
+      "image": "/images/placeholder.webp",
+      "link": "https://github.com/uuuujangkedu/Titik-UMKM"
+    },
+    {
+      "title": "OpenJob API",
+      "category": "RESTful API for Job Marketplace",
+      "tools": "Node.js, Express, PostgreSQL, Automated Tests",
+      "image": "/images/placeholder.webp",
+      "link": "https://github.com/uuuujangkedu/Projek-akhir-OpenJob-RESTful-API-Versi-2"
+    },
+    {
+      "title": "Mobile Computing",
+      "category": "Flutter Mobile Application",
+      "tools": "Dart, Flutter, Mobile UI",
+      "image": "/images/placeholder.webp",
+      "link": "https://github.com/uuuujangkedu/UAS_MOBILE-COMPUTING"
+    }
+  ],
+  "techStack": {
+    "title": "My Techstack",
+    "images": [
+      "/images/react2.webp",
+      "/images/next2.webp",
+      "/images/node2.webp",
+      "/images/express.webp",
+      "/images/mongo.webp",
+      "/images/mysql.webp",
+      "/images/typescript.webp",
+      "/images/javascript.webp"
+    ]
+  },
+  "contact": {
+    "heading": "Contact",
+    "connectHeading": "Connect",
+    "connectLink": {
+      "label": "LinkedIn — Muhammad Riszki Fadhillah",
+      "url": "https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
+    },
+    "educationHeading": "Education",
+    "education": ["University of Darma Persada, Jakarta Raya — present"],
+    "statusHeading": "Status",
+    "status": "Open to work · Jakarta Raya · hybrid or remote",
+    "socialHeading": "Social",
+    "socials": [
+      { "label": "GitHub", "url": "https://github.com/uuuujangkedu" },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
+      }
+    ],
+    "creditName": "Muhammad Riszki Fadhillah",
+    "year": "2026"
+  },
+  "social": {
+    "icons": [
+      { "icon": "github", "url": "https://github.com/uuuujangkedu" },
+      {
+        "icon": "linkedin",
+        "url": "https://www.linkedin.com/in/muhammad-riszki-fadhillah-7289b3285/"
+      }
+    ],
+    "resume": "/CV.pdf",
+    "showResume": true
+  }
+}
