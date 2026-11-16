@@ -15,6 +15,7 @@
 }
 
 .landing-circle1 {
+  pointer-events: none;
   top: 0%;
   left: 0%;
   z-index: 15;
@@ -53,6 +54,7 @@
 }
 
 .landing-circle2 {
+  pointer-events: none;
   top: 50%;
   right: 0%;
   transform: translate(calc(100% - 2px), -50%);
@@ -90,6 +92,7 @@
 }
 
 .character-rim {
+  pointer-events: none;
   position: absolute;
   width: 400px;
   height: 400px;
@@ -201,11 +204,12 @@
   left: 12%;
   /* Hangs above the hero text: bottom edge pinned above the greeting */
   bottom: calc(50% + 60px);
-  z-index: 10;
+  z-index: 30;
   width: clamp(100px, 26vh, 300px);
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
+  cursor: grab;
 }
 
 .lanyard-swing {

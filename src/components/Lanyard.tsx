@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useContent } from "../context/ContentProvider";
 
 const MAX_ANGLE = 28;
@@ -27,13 +27,40 @@ const Lanyard = () => {
     return (Math.atan2(dx, dy) * 180) / Math.PI;
   };
 
-  const release = () => {
-    setGrab(false);
-    setAngle(0);
-  };
+  // Track on the window, so the drag survives leaving the card.
+  useEffect(() => {
+    if (!grab) return;
+    const move = (event: PointerEvent) => {
+      const delta = pointerAngle(event.clientX, event.clientY) - drag.current.from;
+      setAngle(clamp(drag.current.base + delta));
+    };
+    const release = () => {
+      setGrab(false);
+      setAngle(0);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+    };
+  }, [grab]);
 
   return (
-    <div className="lanyard">
+    <div
+      className="lanyard"
+      onPointerDown={(event) => {
+        if (event.button !== 0) return;
+        event.preventDefault();
+        drag.current = {
+          base: angle,
+          from: pointerAngle(event.clientX, event.clientY),
+        };
+        setGrab(true);
+      }}
+    >
       <div
         className="lanyard-swing"
         ref={swing}
@@ -48,25 +75,7 @@ const Lanyard = () => {
         >
           <div className="lanyard-strap" aria-hidden />
           <span className="lanyard-clip" aria-hidden />
-          <div
-            className={`lanyard-card${grab ? " is-grabbed" : ""}`}
-            onPointerDown={(event) => {
-              event.currentTarget.setPointerCapture(event.pointerId);
-              drag.current = {
-                base: angle,
-                from: pointerAngle(event.clientX, event.clientY),
-              };
-              setGrab(true);
-            }}
-            onPointerMove={(event) => {
-              if (!grab) return;
-              const delta =
-                pointerAngle(event.clientX, event.clientY) - drag.current.from;
-              setAngle(clamp(drag.current.base + delta));
-            }}
-            onPointerUp={release}
-            onPointerCancel={release}
-          >
+          <div className={`lanyard-card${grab ? " is-grabbed" : ""}`}>
             {broken ? (
               <span className="lanyard-fallback" aria-hidden>
                 {firstName.charAt(0)}
