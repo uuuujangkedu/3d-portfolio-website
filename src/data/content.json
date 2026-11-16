@@ -24,7 +24,10 @@
     "roleIntro": "Full-Stack &",
     "rolePrimary": "Web",
     "roleSecondary": "Backend",
-    "photo": ""
+    "photo": "",
+    "cardFrontTag": "Web",
+    "cardBackTag": "Portfolio ID",
+    "cardHint": "Tarik ke mana saja, klik untuk membalik"
   },
   "about": {
     "title": "About Me",

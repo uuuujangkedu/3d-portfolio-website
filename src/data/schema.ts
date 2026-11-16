@@ -75,6 +75,9 @@ export const sections: Section[] = [
         label: "Foto lanyard (kosong = foto acak)",
         type: "image",
       },
+      { key: "cardFrontTag", label: "Teks kartu depan", type: "text" },
+      { key: "cardBackTag", label: "Teks kartu belakang", type: "text" },
+      { key: "cardHint", label: "Keterangan saat disentuh", type: "text" },
     ],
   },
   {

@@ -20,8 +20,16 @@ const strapFallback = () =>
   clamp((window.innerHeight || 800) * 0.18, 100, 280);
 
 const Lanyard = () => {
-  const { firstName, lastName, rolePrimary, roleSecondary, photo } =
-    useContent().landing;
+  const {
+    firstName,
+    lastName,
+    rolePrimary,
+    roleSecondary,
+    photo,
+    cardFrontTag,
+    cardBackTag,
+    cardHint,
+  } = useContent().landing;
   const { isLoading } = useLoading();
   const [src] = useState(() => photo || randomPhoto());
   const [broken, setBroken] = useState(false);
@@ -243,7 +251,7 @@ const Lanyard = () => {
                   grab ? 1.03 : 1
                 })`,
               }}
-              title="Tarik ke mana saja, klik untuk membalik"
+              title={cardHint || undefined}
             >
               <div className="lanyard-flip">
                 <div className="lanyard-face">
@@ -263,7 +271,7 @@ const Lanyard = () => {
                   <div className="lanyard-caption">
                     <strong>{firstName}</strong>
                     <span>{lastName}</span>
-                    <em>{rolePrimary}</em>
+                    <em>{cardFrontTag || rolePrimary}</em>
                   </div>
                 </div>
                 <div className="lanyard-face lanyard-back">
@@ -277,7 +285,7 @@ const Lanyard = () => {
                   <span>
                     {rolePrimary} / {roleSecondary}
                   </span>
-                  <em>Portfolio ID</em>
+                  <em>{cardBackTag || "Portfolio ID"}</em>
                 </div>
               </div>
             </div>
