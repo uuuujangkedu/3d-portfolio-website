@@ -244,7 +244,7 @@
   filter: drop-shadow(0 4px 14px rgb(0 0 0 / 0.55));
 }
 
-/* Two bands meeting at the clip, so the lanyard reads as a V when swung */
+/* Two bands meeting at the clip: a faint seam down the middle, no hollow */
 .lanyard-band {
   position: absolute;
   inset: 0;
@@ -258,11 +258,11 @@
 }
 
 .lanyard-band.left {
-  clip-path: polygon(0 0, 27% 0, 60% 100%, 41% 100%);
+  clip-path: polygon(0 0, 49.6% 0, 49.6% 100%, 42% 100%);
 }
 
 .lanyard-band.right {
-  clip-path: polygon(73% 0, 100% 0, 59% 100%, 40% 100%);
+  clip-path: polygon(50.4% 0, 100% 0, 58% 100%, 50.4% 100%);
   background:
     repeating-linear-gradient(
       62deg,
