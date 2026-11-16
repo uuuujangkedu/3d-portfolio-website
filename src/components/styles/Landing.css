@@ -239,7 +239,7 @@
 .lanyard-strap {
   position: relative;
   width: 88%;
-  height: clamp(46px, 7vh, 110px);
+  height: clamp(64px, 11vh, 170px);
   flex: none;
   filter: drop-shadow(0 4px 14px rgb(0 0 0 / 0.55));
 }
