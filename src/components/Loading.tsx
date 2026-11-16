@@ -96,7 +96,18 @@ const Loading = ({ percent }: { percent: number }) => {
 
 export default Loading;
 
-export const setProgress = (setLoading: (value: number) => void) => {
+// How much the loading screen drags: the number multiplies every wait.
+export const SPEED_FACTORS: Record<string, number> = {
+  Santai: 1.8,
+  Normal: 1,
+  Cepat: 0.5,
+  Ngebut: 0.25,
+};
+
+export const setProgress = (
+  setLoading: (value: number) => void,
+  factor = 1
+) => {
   let percent: number = 0;
 
   let interval = setInterval(() => {
@@ -112,9 +123,9 @@ export const setProgress = (setLoading: (value: number) => void) => {
         if (percent > 91) {
           clearInterval(interval);
         }
-      }, 2000);
+      }, 2000 * factor);
     }
-  }, 100);
+  }, 100 * factor);
 
   function clear() {
     clearInterval(interval);
@@ -132,7 +143,7 @@ export const setProgress = (setLoading: (value: number) => void) => {
           resolve(percent);
           clearInterval(interval);
         }
-      }, 2);
+      }, 2 * factor);
     });
   }
   return { loaded, percent, clear };

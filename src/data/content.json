@@ -4,7 +4,8 @@
   },
   "loader": {
     "initials": "MRF",
-    "marqueeWords": ["Full Stack Developer", "Software Engineer"]
+    "marqueeWords": ["Full Stack Developer", "Software Engineer"],
+    "speed": "Normal"
   },
   "navbar": {
     "initials": "MRF",

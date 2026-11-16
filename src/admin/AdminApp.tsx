@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import { FieldEditor } from "./FieldEditor";
 import Overview from "./Overview";
+import Preview from "./Preview";
 import { Field, sections } from "../data/schema";
 import { currentEmail, demoCredentials, demoMode, hasSession, signIn, signOut } from "../lib/adminAuth";
 import {
@@ -133,6 +134,7 @@ const AdminApp = () => {
   const [saved, setSaved] = useState<Content | null>(null);
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
+  const [previewKey, setPreviewKey] = useState(0);
 
   useEffect(() => {
     hasSession()
@@ -275,47 +277,58 @@ const AdminApp = () => {
         {page === "overview" ? (
           <Overview content={content} onOpen={setPage} />
         ) : (
-          <div className="ad-page">
-            <header className="ad-page-head">
-              <h1>{activeSection?.label.toUpperCase()}</h1>
-              <p>
-                {activeSection?.type === "list"
-                  ? "Tambah, ubah, hapus, dan urutkan item."
-                  : "Ubah isi kolom lalu tekan Simpan."}
-              </p>
-            </header>
+          <div className="ad-page ad-split">
+            <div>
+              <header className="ad-page-head">
+                <h1>{activeSection?.label.toUpperCase()}</h1>
+                <p>
+                  {activeSection?.type === "list"
+                    ? "Tambah, ubah, hapus, dan urutkan item."
+                    : "Ubah isi kolom lalu tekan Simpan."}
+                </p>
+              </header>
 
-            <section className="ad-card">
-              {activeSection?.type === "group"
-                ? activeSection.fields.map((field) => (
-                    <FieldEditor
-                      key={field.key}
-                      field={field}
-                      value={(sectionValue as Record<string, unknown>)[field.key]}
-                      onChange={(next) =>
-                        setContent({
-                          ...content,
-                          [activeSection.key]: {
-                            ...(sectionValue as Record<string, unknown>),
-                            [field.key]: next,
-                          },
-                        } as Content)
-                      }
-                    />
-                  ))
-                : activeSection && (
-                    <FieldEditor
-                      field={{ ...activeSection, type: "list" } as Field}
-                      value={sectionValue}
-                      onChange={(next) =>
-                        setContent({
-                          ...content,
-                          [activeSection.key]: next,
-                        } as Content)
-                      }
-                    />
-                  )}
-            </section>
+              <section className="ad-card">
+                {activeSection?.type === "group"
+                  ? activeSection.fields.map((field) => (
+                      <FieldEditor
+                        key={field.key}
+                        field={field}
+                        value={
+                          (sectionValue as Record<string, unknown>)[field.key]
+                        }
+                        onChange={(next) =>
+                          setContent({
+                            ...content,
+                            [activeSection.key]: {
+                              ...(sectionValue as Record<string, unknown>),
+                              [field.key]: next,
+                            },
+                          } as Content)
+                        }
+                      />
+                    ))
+                  : activeSection && (
+                      <FieldEditor
+                        field={{ ...activeSection, type: "list" } as Field}
+                        value={sectionValue}
+                        onChange={(next) =>
+                          setContent({
+                            ...content,
+                            [activeSection.key]: next,
+                          } as Content)
+                        }
+                      />
+                    )}
+              </section>
+            </div>
+
+            <Preview
+              key={previewKey}
+              page={page}
+              content={content}
+              onRefresh={() => setPreviewKey((value) => value + 1)}
+            />
           </div>
         )}
       </main>

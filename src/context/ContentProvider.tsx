@@ -24,6 +24,19 @@ export const ContentProvider = ({ children }: PropsWithChildren) => {
     if (content) document.title = content.seo.title;
   }, [content]);
 
+  // Lets the admin dashboard drive this page inside its preview frame.
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      const message = event.data as { type?: string; content?: Content };
+      if (message?.type === "portfolio:preview" && message.content) {
+        setContent(message.content);
+      }
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+
   if (!content) return null;
 
   return (

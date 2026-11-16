@@ -38,6 +38,12 @@ export const sections: Section[] = [
     fields: [
       { key: "initials", label: "Inisial di pojok", type: "text" },
       { key: "marqueeWords", label: "Kata berjalan", type: "strings" },
+      {
+        key: "speed",
+        label: "Kecepatan loading",
+        type: "select",
+        options: ["Santai", "Normal", "Cepat", "Ngebut"],
+      },
     ],
   },
   {
@@ -46,8 +52,8 @@ export const sections: Section[] = [
     type: "group",
     fields: [
       { key: "initials", label: "Inisial / logo", type: "text" },
-      { key: "connectUrl", label: "URL kanan atas", type: "text" },
-      { key: "connectLabel", label: "Teks kanan atas", type: "text" },
+      { key: "connectUrl", label: "URL tengah atas", type: "text" },
+      { key: "connectLabel", label: "Teks tengah atas", type: "text" },
       {
         key: "links",
         label: "Menu",

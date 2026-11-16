@@ -279,6 +279,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  perspective: 900px;
 }
 
 .lanyard-clip {
@@ -289,31 +290,27 @@
   box-shadow: 0 4px 10px rgb(0 0 0 / 0.5);
 }
 
+/* Carries the drag pose only; the card's looks live on the faces, which are
+   the things that actually turn over. */
 .lanyard-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+/* Holds the size and turns the card over as one piece. */
+.lanyard-flip {
   position: relative;
   width: 100%;
   margin-top: 2px;
   aspect-ratio: 3 / 4.1;
-  overflow: hidden;
-  border: 1px solid #24354a;
-  border-radius: 10px;
-  background: #101a26;
-  box-shadow: 0 18px 40px rgb(0 0 0 / 0.55);
-  cursor: grab;
-  touch-action: none;
-  perspective: 900px;
-  transition: box-shadow 0.3s;
-}
-
-.lanyard-flip {
-  position: relative;
-  width: 100%;
-  height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.7s cubic-bezier(0.4, 0.1, 0.2, 1);
 }
 
-.lanyard-card.is-flipped .lanyard-flip {
+.lanyard-flip.is-flipped {
   transform: rotateY(180deg);
 }
 
@@ -321,16 +318,24 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  border: 1px solid #24354a;
+  border-radius: 10px;
+  background: #101a26;
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.55);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  transition: box-shadow 0.3s, border-color 0.3s;
 }
 
 .lanyard-card.is-grabbed {
   cursor: grabbing;
+}
+
+.lanyard-card.is-grabbed .lanyard-face {
   box-shadow: 0 28px 52px rgb(0 0 0 / 0.65);
 }
 
-.lanyard-card:hover {
+.lanyard-card:hover .lanyard-face {
   border-color: rgb(94 234 212 / 0.5);
   box-shadow: 0 22px 46px rgb(0 0 0 / 0.6);
 }

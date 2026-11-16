@@ -336,6 +336,65 @@ body {
   color: var(--ad-muted);
 }
 
+/* ---------- editor + preview side by side ---------- */
+
+.ad-split {
+  display: grid;
+  gap: 22px;
+  align-items: start;
+}
+
+.ad-pane {
+  display: none;
+}
+
+.ad-pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ad-pane-head strong {
+  color: var(--ad-muted);
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.ad-pane iframe {
+  width: 100%;
+  border: 1px solid var(--ad-line);
+  border-radius: 14px;
+  background: #05080f;
+}
+
+/* The frame needs the room; below this the editor keeps the full width. */
+@media only screen and (min-width: 1400px) {
+  .ad-split {
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 42%);
+  }
+
+  .ad-pane {
+    position: sticky;
+    top: 76px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+  }
+
+  .ad-pane iframe {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+/* Adding an item happens at the top of the list, where the eye already is. */
+.ad-add {
+  margin-bottom: 16px;
+}
+
 .ad-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

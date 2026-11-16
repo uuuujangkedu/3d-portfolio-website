@@ -241,19 +241,19 @@ const Lanyard = () => {
           </div>
           <div className="lanyard-hang">
             <span className="lanyard-clip" aria-hidden />
-            <div
-              ref={card}
-              className={`lanyard-card${grab ? " is-grabbed" : ""}${
-                flipped ? " is-flipped" : ""
-              }`}
-              style={{
-                transform: `rotate(${pose.angle * -0.12}deg) scale(${
-                  grab ? 1.03 : 1
-                })`,
-              }}
-              title={cardHint || undefined}
-            >
-              <div className="lanyard-flip">
+            {/* The flip wraps the whole card, chrome included, so the card
+                turns over as one object instead of the photo alone. */}
+            <div className={`lanyard-flip${flipped ? " is-flipped" : ""}`}>
+              <div
+                ref={card}
+                className={`lanyard-card${grab ? " is-grabbed" : ""}`}
+                style={{
+                  transform: `rotate(${pose.angle * -0.12}deg) scale(${
+                    grab ? 1.03 : 1
+                  })`,
+                }}
+                title={cardHint || undefined}
+              >
                 <div className="lanyard-face">
                   {broken ? (
                     <span className="lanyard-fallback" aria-hidden>

@@ -52,12 +52,16 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
       [next[from], next[to]] = [next[to], next[from]];
       onChange(next);
     };
+    const add = () => onChange([...items, blankItem(field)]);
 
     return (
       <fieldset className="ad-fieldset">
         <legend>
           {field.label} <span className="ad-count">{items.length}</span>
         </legend>
+        <button type="button" className="ad-add" onClick={add}>
+          + Tambah
+        </button>
         {items.map((item, index) => (
           <div className="ad-item" key={index}>
             <div className="ad-item-head">
@@ -115,6 +119,13 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
         <legend>
           {field.label} <span className="ad-count">{list.length}</span>
         </legend>
+        <button
+          type="button"
+          className="ad-add"
+          onClick={() => onChange([...list, ""])}
+        >
+          + Tambah
+        </button>
         {list.map((entry, index) => (
           <div className="ad-item" key={index}>
             <div className="ad-item-head">
@@ -154,6 +165,13 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
     return (
       <fieldset className="ad-fieldset">
         <legend>{field.label}</legend>
+        <button
+          type="button"
+          className="ad-add"
+          onClick={() => onChange([...list, ""])}
+        >
+          + Tambah
+        </button>
         {list.map((entry, index) => (
           <div className="ad-row" key={index}>
             <input
