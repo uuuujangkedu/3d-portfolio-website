@@ -239,7 +239,7 @@
 .lanyard-strap {
   position: relative;
   width: 88%;
-  height: clamp(64px, 11vh, 170px);
+  height: clamp(80px, 14vh, 210px);
   flex: none;
   filter: drop-shadow(0 4px 14px rgb(0 0 0 / 0.55));
 }
@@ -603,7 +603,7 @@ h2.landing-info-h2 {
   }
 
   .landing-intro {
-    top: 60%;
+    top: 64%;
     left: auto;
     right: 66%;
     transform: translate(0%, -50%);
@@ -622,7 +622,7 @@ h2.landing-info-h2 {
 
 @media screen and (min-width: 1200px) {
   .landing-intro {
-    top: 60%;
+    top: 64%;
     left: auto;
     right: 70%;
     transform: translate(0%, -50%);
