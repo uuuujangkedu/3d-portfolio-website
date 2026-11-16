@@ -31,3 +31,9 @@ export async function hasSession(): Promise<boolean> {
   const { data } = await supabase.auth.getSession();
   return data.session !== null;
 }
+
+export async function currentEmail(): Promise<string> {
+  if (!supabase) return demoEmail;
+  const { data } = await supabase.auth.getUser();
+  return data.user?.email ?? "";
+}
