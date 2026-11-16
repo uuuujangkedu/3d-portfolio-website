@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 import { useContent } from "../context/ContentProvider";
 import { useLoading } from "../context/LoadingProvider";
 
@@ -14,6 +13,12 @@ const randomPhoto = () =>
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
+
+// Matches the resting strap height, so stretching keeps it joined to the clip.
+const strapBase = () => {
+  const height = window.innerHeight || 800;
+  return clamp(height * 0.07, 46, 110);
+};
 
 const Lanyard = () => {
   const { firstName, lastName, rolePrimary, roleSecondary, photo } =
@@ -178,8 +183,10 @@ const Lanyard = () => {
     };
   }, [grab, paint, settle]);
 
+  const strapHeight = Math.max(22, strapBase() + pose.stretch);
+
   return (
-    <div className="lanyard" style={{ "--stretch": `${pose.stretch}px` } as CSSProperties}>
+    <div className="lanyard">
       <div
         className="lanyard-swing"
         ref={swing}
@@ -189,7 +196,11 @@ const Lanyard = () => {
           className="lanyard-idle"
           style={{ animationPlayState: grab ? "paused" : "running" }}
         >
-          <div className="lanyard-strap" aria-hidden />
+          <div
+            className="lanyard-strap"
+            aria-hidden
+            style={{ height: `${strapHeight}px` }}
+          />
           <div className="lanyard-hang">
             <span className="lanyard-clip" aria-hidden />
             <div
