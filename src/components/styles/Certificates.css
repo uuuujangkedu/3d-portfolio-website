@@ -34,6 +34,50 @@
   width: min(1080px, 100%);
 }
 
+/* Certificate strip on the landing page: runs sideways, pauses on hover. */
+.certs-marquee {
+  width: 100%;
+  padding: 6px 0;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+}
+
+.certs-marquee .cert-card {
+  flex: 0 0 clamp(220px, 23vw, 300px);
+  margin-right: 24px;
+}
+
+.certs-more {
+  margin-top: 46px;
+  padding: 12px 26px;
+  border: 1px solid rgb(94 234 212 / 0.4);
+  border-radius: 999px;
+  color: var(--accentColor);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.certs-more:hover,
+.certs-more:focus-visible {
+  background: rgb(94 234 212 / 0.12);
+  border-color: rgb(94 234 212 / 0.7);
+}
+
 .cert-card {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,6 @@
+import Marquee from "react-fast-marquee";
 import { useContent } from "../context/ContentProvider";
+import CertCard from "./CertCard";
 import "./styles/Certificates.css";
 
 const Certificates = () => {
@@ -6,47 +8,36 @@ const Certificates = () => {
   // Keep the anchor even when empty, so the navbar link still has a target.
   if (!certificates.length) return <div id="certificates" />;
 
+  const cards = certificates.map((cert, index) => (
+    <CertCard cert={cert} key={`${cert.title}-${cert.year}-${index}`} />
+  ));
+
+  // A strip that never stops moving is a barrier for some readers, so they
+  // get the same cards laid out flat instead.
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   return (
     <div className="certs-section section-container" id="certificates">
       <h2>
         Certificates <span>&</span>
         <br /> credentials
       </h2>
-      <div className="certs-grid">
-        {certificates.map((cert) => {
-          const card = (
-            <>
-              {cert.image ? (
-                <img src={cert.image} alt="" loading="lazy" />
-              ) : null}
-              <div className="cert-body">
-                <span className="cert-year">{cert.year}</span>
-                <h4>{cert.title}</h4>
-                <h5>{cert.issuer}</h5>
-                {cert.url ? (
-                  <em className="cert-link">Lihat kredensial ↗</em>
-                ) : null}
-              </div>
-            </>
-          );
-          const key = `${cert.title}-${cert.year}`;
-          return cert.url ? (
-            <a
-              className="cert-card"
-              key={key}
-              href={cert.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {card}
-            </a>
-          ) : (
-            <div className="cert-card" key={key}>
-              {card}
-            </div>
-          );
-        })}
-      </div>
+      {still ? (
+        <div className="certs-grid">{cards}</div>
+      ) : (
+        <Marquee
+          className="certs-marquee"
+          speed={45}
+          autoFill
+          pauseOnHover
+          gradient={false}
+        >
+          {cards}
+        </Marquee>
+      )}
+      <a className="certs-more" href="/certificates.html">
+        Lihat semua sertifikat ↗
+      </a>
     </div>
   );
 };

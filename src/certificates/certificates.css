@@ -1,0 +1,55 @@
+/* The landing page locks the body for its smooth scroller; this page scrolls. */
+body {
+  overflow: auto;
+}
+
+.certs-page {
+  min-height: 100vh;
+  padding: 30px clamp(20px, 7vw, 110px) 90px;
+}
+
+.certs-page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #9fb0c3;
+  font-size: 14px;
+}
+
+.certs-page-back {
+  color: var(--accentColor);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.certs-page h1 {
+  margin: 60px 0 10px;
+  font-size: clamp(34px, 6vw, 68px);
+  font-weight: 400;
+  line-height: 1.05;
+  background: linear-gradient(0deg, #0d9488, #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.certs-page h1 > span {
+  font-weight: 300;
+}
+
+.certs-page-count {
+  margin: 0 0 42px;
+  color: #9fb0c3;
+}
+
+.certs-grid-all {
+  width: 100%;
+  max-width: 1300px;
+}
+
+.certs-page-empty {
+  color: #9fb0c3;
+}
