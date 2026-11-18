@@ -92,14 +92,6 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
             ))}
           </div>
         ))}
-        <button
-          type="button"
-          onClick={() =>
-            onChange([...items, blankItem(field)])
-          }
-        >
-          + Tambah
-        </button>
       </fieldset>
     );
   }
@@ -153,9 +145,6 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
             />
           </div>
         ))}
-        <button type="button" onClick={() => onChange([...list, ""])}>
-          + Tambah
-        </button>
       </fieldset>
     );
   }
@@ -189,9 +178,6 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
             </button>
           </div>
         ))}
-        <button type="button" onClick={() => onChange([...list, ""])}>
-          + Tambah
-        </button>
       </fieldset>
     );
   }
