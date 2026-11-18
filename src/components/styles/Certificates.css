@@ -27,7 +27,12 @@
   font-weight: 300;
 }
 
-/* ── Stacked Deck Layout ── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: min(1080px, 100%);
+}
 .certs-stack-wrapper {
   display: flex;
   flex-direction: column;
