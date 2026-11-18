@@ -199,7 +199,9 @@ const AdminApp = () => {
         </div>
 
         <div className="ad-user">
-          <span className="ad-avatar">{initialsOf(email || "AD")}</span>
+          <span className="ad-avatar">
+            {initialsOf(`${content.landing.firstName} ${content.landing.lastName}`)}
+          </span>
           <div>
             <strong>{content.landing.firstName}</strong>
             <span className="ad-user-mail">{email}</span>
