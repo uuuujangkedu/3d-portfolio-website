@@ -1,4 +1,11 @@
-import { FaGithub, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaSpotify,
+  FaStrava,
+  FaYoutube,
+} from "react-icons/fa6";
 import type { ComponentType } from "react";
 import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
@@ -11,6 +18,8 @@ const icons: Record<string, ComponentType> = {
   linkedin: FaLinkedinIn,
   instagram: FaInstagram,
   youtube: FaYoutube,
+  spotify: FaSpotify,
+  strava: FaStrava,
 };
 
 const SocialIcons = () => {

@@ -198,7 +198,7 @@ export const sections: Section[] = [
             key: "icon",
             label: "Ikon",
             type: "select",
-            options: ["github", "linkedin", "instagram", "youtube"],
+            options: ["github", "linkedin", "instagram", "youtube", "spotify", "strava"],
           },
           { key: "url", label: "URL", type: "text" },
         ],
