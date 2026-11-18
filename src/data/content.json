@@ -117,38 +117,7 @@
   "certificates": [],
   "skills": {
     "title": "My Skills",
-    "items": [
-      {
-        "name": "JavaScript & TypeScript",
-        "level": "Advanced",
-        "description": "Modern ES6+, DOM manipulation, type systems, asynchronous patterns, and full-stack integration."
-      },
-      {
-        "name": "React & Frontend",
-        "level": "Advanced",
-        "description": "Component architecture, hooks, state management, Vite, Tailwind CSS, and responsive UI design."
-      },
-      {
-        "name": "PHP & Laravel",
-        "level": "Intermediate",
-        "description": "MVC architecture, Blade templates, Eloquent ORM, authentication, and REST API development."
-      },
-      {
-        "name": "Node.js & Express",
-        "level": "Intermediate",
-        "description": "RESTful API design, middleware, request validation, authentication, and database connectivity."
-      },
-      {
-        "name": "Databases (MySQL, PostgreSQL, MongoDB)",
-        "level": "Intermediate",
-        "description": "Schema design, relational queries, indexing, and NoSQL document modeling."
-      },
-      {
-        "name": "Git & Deployment",
-        "level": "Intermediate",
-        "description": "Version control, branching workflows, pull requests, and CI/CD hosting deployments."
-      }
-    ]
+    "items": []
   },
   "techStack": {
     "title": "My Techstack",
