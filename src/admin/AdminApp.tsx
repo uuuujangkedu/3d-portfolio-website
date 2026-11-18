@@ -12,6 +12,7 @@ import {
   MdShare,
   MdTimeline,
   MdVerified,
+  MdWorkspacePremium,
   MdWork,
 } from "react-icons/md";
 import { FieldEditor } from "./FieldEditor";
@@ -37,6 +38,7 @@ const icons: Record<string, ComponentType> = {
   career: MdTimeline,
   work: MdWork,
   certificates: MdVerified,
+  skills: MdWorkspacePremium,
   techStack: MdLayers,
   contact: MdContacts,
   social: MdShare,

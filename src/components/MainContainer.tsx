@@ -3,6 +3,7 @@ import About from "./About";
 import Career from "./Career";
 import Certificates from "./Certificates";
 import Contact from "./Contact";
+import Skills from "./Skills";
 import Cursor from "./Cursor";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
@@ -45,6 +46,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <Career />
             <Work />
             <Certificates />
+            <Skills />
             {isDesktopView && (
               <Suspense fallback={<div>Loading....</div>}>
                 <TechStack />

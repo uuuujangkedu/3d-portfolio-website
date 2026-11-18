@@ -142,6 +142,24 @@ export const sections: Section[] = [
     ],
   },
   {
+    key: "skills",
+    label: "Skills",
+    type: "group",
+    fields: [
+      { key: "title", label: "Judul", type: "text" },
+      {
+        key: "items",
+        label: "Daftar skill",
+        type: "list",
+        fields: [
+          { key: "name", label: "Nama skill", type: "text" },
+          { key: "level", label: "Tingkat (mis. Advanced)", type: "text" },
+          { key: "description", label: "Deskripsi", type: "textarea" },
+        ],
+      },
+    ],
+  },
+  {
     key: "techStack",
     label: "Tech stack",
     type: "group",

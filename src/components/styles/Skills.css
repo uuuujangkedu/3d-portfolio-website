@@ -1,0 +1,103 @@
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: auto;
+  margin-bottom: 180px;
+  padding: 100px 0px;
+}
+
+.skills-section h2 {
+  font-size: 70px;
+  line-height: 70px;
+  font-weight: 400;
+  text-align: center;
+  background: linear-gradient(0deg, #0d9488, #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+
+.skills-section h2 > span {
+  font-family: "Geist", sans-serif;
+  font-weight: 300;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  width: min(1080px, 100%);
+}
+
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid rgb(94 234 212 / 0.18);
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.045),
+    rgb(255 255 255 / 0.01)
+  );
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(94 234 212 / 0.55);
+  box-shadow: 0 16px 36px rgb(0 0 0 / 0.4);
+}
+
+.skill-card h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.skill-level {
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgb(94 234 212 / 0.12);
+  color: var(--accentColor);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.skill-card p {
+  margin: 4px 0 0;
+  color: #9fb0c3;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media only screen and (max-width: 1400px) {
+  .skills-section h2 {
+    font-size: 50px;
+    line-height: 50px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .skills-section {
+    padding: 60px 0px;
+    margin-bottom: 100px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .skills-section h2 {
+    font-size: 40px;
+    line-height: 42px;
+    margin-top: 0px;
+    margin-bottom: 40px;
+  }
+}
