@@ -1,6 +1,6 @@
 import type { Certificate } from "../lib/content";
+import "./styles/CertCard.css";
 
-// Shared by the section and the full list, so they cannot drift apart.
 const CertCard = ({ cert }: { cert: Certificate }) => {
   const body = (
     <>
