@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
-import "./styles/Certificates.css";
-import WorkImage from "./WorkImage";
+import "./styles/Work.css";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import { useContent } from "../context/ContentProvider";
 
@@ -81,12 +80,18 @@ const Certificates = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="carousel-image-wrapper cert-carousel-image-wrapper">
-                      <WorkImage
-                        image={cert.image}
-                        alt={cert.title}
-                        link={cert.url}
-                      />
+                    <div className="carousel-image-wrapper">
+                      <div className="work-image cert-carousel-image">
+                        <a
+                          className="work-image-in"
+                          href={cert.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          data-cursor="disable"
+                        >
+                          <img src={cert.image} alt={cert.title} />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
