@@ -10,8 +10,18 @@ export type Certificate = {
   url: string;
 };
 
-export type Content = Omit<typeof fallback, "certificates"> & {
+export type Skill = {
+  name: string;
+  level: string;
+  description: string;
+};
+
+export type Content = Omit<typeof fallback, "certificates" | "skills"> & {
   certificates: Certificate[];
+  skills: {
+    title: string;
+    items: Skill[];
+  };
 };
 
 const OVERRIDE_KEY = "portfolio:content";
