@@ -1,6 +1,7 @@
 import { supabase, isRemote } from "../lib/supabase";
 
 const SESSION_KEY = "portfolio:admin-session";
+const STORAGE = typeof localStorage !== "undefined" ? localStorage : sessionStorage;
 const demoEmail = (import.meta.env.VITE_DEMO_ADMIN_EMAIL as string) || "admin@local";
 const demoPassword = (import.meta.env.VITE_DEMO_ADMIN_PASSWORD as string) || "admin";
 
@@ -17,23 +18,28 @@ export async function signIn(email: string, password: string): Promise<void> {
     const ok =
       email.trim().toLowerCase() === demoEmail && password === demoPassword;
     if (!ok) throw new Error("Email atau password salah (mode demo).");
-    sessionStorage.setItem(SESSION_KEY, "1");
+    STORAGE.setItem(SESSION_KEY, "1");
     return;
   }
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw new Error(error.message);
+  // Supabase keeps its own token in localStorage, but this flag helps our check
+  if (data.session) {
+    STORAGE.setItem(SESSION_KEY, "1");
+  }
 }
 
 export async function signOut(): Promise<void> {
-  sessionStorage.removeItem(SESSION_KEY);
+  STORAGE.removeItem(SESSION_KEY);
   await supabase?.auth.signOut();
 }
 
 export async function hasSession(): Promise<boolean> {
-  if (!supabase) return sessionStorage.getItem(SESSION_KEY) === "1";
+  if (!supabase) return STORAGE.getItem(SESSION_KEY) === "1";
   const { data } = await supabase.auth.getSession();
-  return data.session !== null;
+  if (data.session !== null) return true;
+  return STORAGE.getItem(SESSION_KEY) === "1";
 }
 
 export async function currentEmail(): Promise<string> {
