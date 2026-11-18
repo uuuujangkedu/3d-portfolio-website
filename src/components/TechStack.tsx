@@ -116,7 +116,7 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const { techStack } = useContent();
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const textures = useMemo(
     () => techStack.images.map((url) => textureLoader.load(url)),
     [techStack.images]
