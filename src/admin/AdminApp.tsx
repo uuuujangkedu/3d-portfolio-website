@@ -294,24 +294,25 @@ const AdminApp = () => {
 
               <section className="ad-card">
                 {activeSection?.type === "group"
-                  ? activeSection.fields.map((field) => (
-                      <FieldEditor
-                        key={field.key}
-                        field={field}
-                        value={
-                          (sectionValue as Record<string, unknown>)[field.key]
-                        }
-                        onChange={(next) =>
-                          setContent({
-                            ...content,
-                            [activeSection.key]: {
-                              ...(sectionValue as Record<string, unknown>),
-                              [field.key]: next,
-                            },
-                          } as Content)
-                        }
-                      />
-                    ))
+                  ? activeSection.fields.map((field) => {
+                      const groupVal = (sectionValue ?? {}) as Record<string, unknown>;
+                      return (
+                        <FieldEditor
+                          key={field.key}
+                          field={field}
+                          value={groupVal[field.key]}
+                          onChange={(next) =>
+                            setContent({
+                              ...content,
+                              [activeSection.key]: {
+                                ...groupVal,
+                                [field.key]: next,
+                              },
+                            } as Content)
+                          }
+                        />
+                      );
+                    })
                   : activeSection && (
                       <FieldEditor
                         field={{ ...activeSection, type: "list" } as Field}
