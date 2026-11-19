@@ -24,11 +24,9 @@ const Lanyard = () => {
     firstName,
     lastName,
     rolePrimary,
-    roleSecondary,
     photo,
     backPhoto,
     cardFrontTag,
-    cardBackTag,
     cardHint,
   } = useContent().landing;
   const { isLoading } = useLoading();
@@ -291,11 +289,6 @@ const Lanyard = () => {
                       onError={() => setBackBroken(true)}
                     />
                   )}
-                  <div className="lanyard-caption">
-                    <strong>{firstName}</strong>
-                    <span>{lastName}</span>
-                    <em>{cardBackTag || roleSecondary}</em>
-                  </div>
                 </div>
               </div>
             </div>
