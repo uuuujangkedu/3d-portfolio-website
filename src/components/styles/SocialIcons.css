@@ -122,20 +122,21 @@ div.resume-button span {
     bottom: auto;
   }
   .social-icons span {
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(34, 211, 238, 0.15);
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   .social-icons a {
     position: static;
     transform: none;
-    font-size: 20px;
-    color: #e2e8f0;
+    font-size: 22px;
+    color: #ffffff;
   }
   .resume-button {
     position: static;
