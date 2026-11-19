@@ -27,6 +27,7 @@
     "rolePrimary": "Web",
     "roleSecondary": "Backend",
     "photo": "",
+    "backPhoto": "",
     "cardFrontTag": "Web",
     "cardBackTag": "Portfolio ID",
     "cardHint": "Tarik ke mana saja, klik untuk membalik"

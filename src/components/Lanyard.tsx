@@ -26,13 +26,16 @@ const Lanyard = () => {
     rolePrimary,
     roleSecondary,
     photo,
+    backPhoto,
     cardFrontTag,
     cardBackTag,
     cardHint,
   } = useContent().landing;
   const { isLoading } = useLoading();
   const [src] = useState(() => photo || randomPhoto());
+  const [backSrc] = useState(() => backPhoto || randomPhoto());
   const [broken, setBroken] = useState(false);
+  const [backBroken, setBackBroken] = useState(false);
   const [pose, setPose] = useState({ angle: 0, stretch: 0 });
   const [strap, setStrap] = useState(strapFallback);
   const [grab, setGrab] = useState(false);
@@ -275,17 +278,24 @@ const Lanyard = () => {
                   </div>
                 </div>
                 <div className="lanyard-face lanyard-back">
-                  <span className="lanyard-back-mark">
-                    {firstName.charAt(0)}
-                    {lastName.charAt(0)}
-                  </span>
-                  <strong>
-                    {firstName} {lastName}
-                  </strong>
-                  <span>
-                    {rolePrimary} / {roleSecondary}
-                  </span>
-                  <em>{cardBackTag || "Portfolio ID"}</em>
+                  {backBroken ? (
+                    <span className="lanyard-fallback" aria-hidden>
+                      {firstName.charAt(0)}
+                      {lastName.charAt(0)}
+                    </span>
+                  ) : (
+                    <img
+                      src={backSrc}
+                      alt=""
+                      draggable={false}
+                      onError={() => setBackBroken(true)}
+                    />
+                  )}
+                  <div className="lanyard-caption">
+                    <strong>{firstName}</strong>
+                    <span>{lastName}</span>
+                    <em>{cardBackTag || roleSecondary}</em>
+                  </div>
                 </div>
               </div>
             </div>

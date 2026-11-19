@@ -78,7 +78,12 @@ export const sections: Section[] = [
       { key: "roleSecondary", label: "Kata peran B", type: "text" },
       {
         key: "photo",
-        label: "Foto lanyard (kosong = foto acak)",
+        label: "Foto lanyard depan (kosong = foto acak)",
+        type: "image",
+      },
+      {
+        key: "backPhoto",
+        label: "Foto lanyard belakang (kosong = foto acak)",
         type: "image",
       },
       { key: "cardFrontTag", label: "Teks kartu depan", type: "text" },
