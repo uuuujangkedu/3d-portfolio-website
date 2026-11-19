@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 import { useContent } from "../context/ContentProvider";
 import Lanyard from "./Lanyard";
-import SocialIcons from "./SocialIcons";
 import "./styles/Landing.css";
 
 const Landing = ({ children }: PropsWithChildren) => {
@@ -31,9 +30,6 @@ const Landing = ({ children }: PropsWithChildren) => {
               <div className="landing-h2-info">{roleSecondary}</div>
               <div className="landing-h2-info-1">{rolePrimary}</div>
             </h2>
-            <div className="landing-mobile-socials">
-              <SocialIcons isMobileInline={true} />
-            </div>
           </div>
         </div>
         {children}

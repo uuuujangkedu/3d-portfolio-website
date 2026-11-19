@@ -35,7 +35,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     <div className="container-main">
       <Cursor />
       <Navbar />
-      {isDesktopView && <SocialIcons />}
+      <SocialIcons />
       {isDesktopView && children}
       <div id="smooth-wrapper">
         <div id="smooth-content">

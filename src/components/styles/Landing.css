@@ -630,6 +630,14 @@ h2.landing-info-h2 {
     display: none;
   }
 
+  .lanyard {
+    top: 78px;
+    right: 4%;
+    left: auto;
+    bottom: auto;
+    width: clamp(58px, 12vh, 92px);
+  }
+
   .landing-intro {
     top: 64%;
     left: auto;
@@ -649,6 +657,14 @@ h2.landing-info-h2 {
 }
 
 @media screen and (min-width: 1200px) {
+  .lanyard {
+    top: 88px;
+    right: 5%;
+    left: auto;
+    bottom: auto;
+    width: clamp(70px, 14vh, 110px);
+  }
+
   .landing-intro {
     top: 64%;
     left: auto;
