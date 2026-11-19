@@ -119,6 +119,15 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        <ul className={isOpen ? "nav-open" : ""}>
+          {navbar.links.map((link) => (
+            <li key={link.href}>
+              <a data-href={link.href} href={link.href}>
+                <HoverLinks text={link.label} />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="landing-circle1"></div>
