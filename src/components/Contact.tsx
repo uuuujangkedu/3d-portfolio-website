@@ -1,13 +1,22 @@
-import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { MdArrowOutward, MdCopyright, MdArrowUpward } from "react-icons/md";
 import { useContent } from "../context/ContentProvider";
 import "./styles/Contact.css";
 
 const Contact = () => {
   const { contact } = useContent();
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">
-        <h3>{contact.heading}</h3>
+        <div className="contact-top-row">
+          <h3>{contact.heading}</h3>
+          <button onClick={scrollToTop} className="back-to-top" data-cursor="disable">
+            Back to top <MdArrowUpward />
+          </button>
+        </div>
         <div className="contact-flex">
           <div className="contact-box">
             <h4>{contact.connectHeading}</h4>
