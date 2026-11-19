@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useContent } from "../context/ContentProvider";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
@@ -11,6 +12,8 @@ export let smoother: ScrollSmoother;
 
 const Navbar = () => {
   const { navbar } = useContent();
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -29,6 +32,7 @@ const Navbar = () => {
     links.forEach((elem) => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
+        setIsOpen(false);
         if (window.innerWidth > 1024) {
           e.preventDefault();
           let elem = e.currentTarget as HTMLAnchorElement;
@@ -41,6 +45,7 @@ const Navbar = () => {
       ScrollSmoother.refresh(true);
     });
   }, []);
+
   return (
     <>
       <div className="header">
@@ -56,7 +61,15 @@ const Navbar = () => {
         >
           {navbar.connectLabel}
         </a>
-        <ul>
+        <button
+          className="menu-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+          data-cursor="disable"
+        >
+          {isOpen ? <HiX /> : <HiMenuAlt3 />}
+        </button>
+        <ul className={isOpen ? "nav-open" : ""}>
           {navbar.links.map((link) => (
             <li key={link.href}>
               <a data-href={link.href} href={link.href}>
