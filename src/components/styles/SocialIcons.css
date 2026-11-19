@@ -90,6 +90,32 @@ div.resume-button span {
     font-size: 28px;
   }
 }
+
+@media only screen and (max-width: 899px) {
+  .social-icons {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto 0 auto;
+    left: auto;
+    bottom: auto;
+  }
+  .icons-section {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .resume-button {
+    position: static;
+    transform: none;
+    justify-content: center;
+    margin: 15px auto 30px auto;
+    display: flex;
+  }
+}
 @media only screen and (min-width: 768px) {
   .resume-button {
     transform: none;
