@@ -22,10 +22,12 @@ const icons: Record<string, ComponentType> = {
   strava: FaStrava,
 };
 
-const SocialIcons = () => {
+const SocialIcons = ({ isMobileInline = false }: { isMobileInline?: boolean }) => {
   const { social } = useContent();
   useEffect(() => {
+    if (isMobileInline) return;
     const social = document.getElementById("social") as HTMLElement;
+    if (!social) return;
 
     social.querySelectorAll("span").forEach((item) => {
       const elem = item as HTMLElement;
@@ -68,11 +70,11 @@ const SocialIcons = () => {
         elem.removeEventListener("mousemove", onMouseMove);
       };
     });
-  }, []);
+  }, [isMobileInline]);
 
   return (
-    <div className="icons-section">
-      <div className="social-icons" data-cursor="icons" id="social">
+    <div className={isMobileInline ? "icons-inline-mobile" : "icons-section"}>
+      <div className="social-icons" data-cursor="icons" id={isMobileInline ? "social-inline" : "social"}>
         {social.icons.map((item) => {
           const Icon = icons[item.icon] ?? FaGithub;
           return (
