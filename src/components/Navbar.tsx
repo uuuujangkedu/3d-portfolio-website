@@ -65,15 +65,6 @@ const Navbar = () => {
         <a href="/#" className="navbar-title" data-cursor="disable">
           {navbar.initials}
         </a>
-        <a
-          href={navbar.connectUrl}
-          className="navbar-connect"
-          data-cursor="disable"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {navbar.connectLabel}
-        </a>
         <button
           className="menu-toggle"
           onClick={() => setIsOpen(!isOpen)}

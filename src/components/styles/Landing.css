@@ -485,6 +485,12 @@
     bottom: auto;
     width: clamp(58px, 12vh, 92px);
   }
+
+  /* Mobile badge is tiny: the caption/initials just clutter it. */
+  .lanyard-caption,
+  .lanyard-fallback {
+    display: none;
+  }
 }
 
 /* .landing-intro h1 span {
