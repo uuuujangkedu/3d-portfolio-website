@@ -1,8 +1,10 @@
-# 3D Portfolio Website
+# Muhammad Riszki Fadhillah — 3D Portfolio
 
-This repository contains the source code for a personal 3D portfolio built with React, TypeScript, Three.js, React Three Fiber, and GSAP. It includes animated page sections, a character scene, custom cursor interactions, and smooth transitions designed for a modern portfolio experience.
+Personal 3D portfolio of **Muhammad Riszki Fadhillah**, a full-stack developer. Built with React, TypeScript, Three.js, React Three Fiber, and GSAP: animated page sections, a 3D character scene, a draggable lanyard, custom cursor interactions, and smooth transitions. All page copy is editable through a built-in admin dashboard with an optional Supabase backend.
 
-Live site: _add your deployed URL here._
+**Live site:** [https://ujangkedu.my.id](https://ujangkedu.my.id)
+
+> Forked from [**akashrmalhotra/3d-portfolio**](https://github.com/akashrmalhotra/3d-portfolio) by **Akash Malhotra** (MIT). This fork is rebranded for the owner's profile and extended with a content admin dashboard, Supabase integration, a certificates page, and a rebuilt responsive/mobile layout. See [Credits & Attribution](#credits--attribution).
 
 ## Table of Contents
 
@@ -15,6 +17,7 @@ Live site: _add your deployed URL here._
 - [Customization Guide](#customization-guide)
 - [Troubleshooting](#troubleshooting)
 - [Deployment](#deployment)
+- [Credits & Attribution](#credits--attribution)
 - [License](#license)
 
 ## Features
@@ -53,9 +56,15 @@ Live site: _add your deployed URL here._
 
 ```text
 .
+├── admin.html                 # Admin dashboard entry point
+├── certificates.html          # Certificates page entry point
 ├── public/                    # Static assets
+├── supabase/
+│   └── schema.sql             # Tables, storage bucket, and RLS policies
 ├── src/
+│   ├── admin/                 # Admin dashboard app (auth, editors, preview)
 │   ├── assets/                # Local media/assets
+│   ├── certificates/          # All-certificates page
 │   ├── components/
 │   │   ├── Character/         # 3D scene + character logic/utilities
 │   │   ├── styles/            # Section/component CSS files
@@ -64,13 +73,16 @@ Live site: _add your deployed URL here._
 │   │   ├── Certificates.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Landing.tsx
+│   │   ├── Lanyard.tsx
 │   │   ├── MainContainer.tsx  # Main page composition
 │   │   ├── Navbar.tsx
 │   │   ├── TechStack.tsx
 │   │   ├── WhatIDo.tsx
 │   │   └── Work.tsx
-│   ├── context/               # Global providers (loading state, etc.)
-│   ├── data/                  # Static data/content definitions
+│   ├── context/               # Global providers (content, loading, etc.)
+│   ├── data/                  # content.json + schema
+│   ├── lib/                   # Supabase client and helpers
+│   ├── types/
 │   ├── App.tsx
 │   └── main.tsx
 ├── package.json
@@ -217,6 +229,22 @@ You can adapt this portfolio to your own profile by updating the following areas
 
 3. Deploy the generated `dist/` folder to your hosting provider (for example Vercel, Netlify, or Cloudflare Pages).
 
+This project is deployed at **[https://ujangkedu.my.id](https://ujangkedu.my.id)** (custom domain). When hosting your own fork, set the `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` environment variables on the host so the admin dashboard works in real mode.
+
+## Credits & Attribution
+
+This project is a fork of [**akashrmalhotra/3d-portfolio**](https://github.com/akashrmalhotra/3d-portfolio) by **Akash Malhotra**, released under the MIT License. Original live demo: [akashrmalhotra.netlify.app](https://akashrmalhotra.netlify.app/). The upstream `LICENSE` carries the copyright notice of **Rajesh Chityal**, which is retained here per the MIT terms.
+
+Changes in this fork:
+
+- Rebranded content and visual identity for Muhammad Riszki Fadhillah.
+- Centralized page copy in `src/data/content.json`, with a password-protected admin dashboard.
+- Optional Supabase backend for auth, the `site_content` table, and image storage.
+- Certificates page and a reworked responsive/mobile layout.
+- Migrated from `gsap-trial` to the standard `gsap` package.
+
+Thanks to the original author for the foundation.
+
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source under the [MIT License](LICENSE). The original work is copyright © Rajesh Chityal (as stated in the upstream `akashrmalhotra/3d-portfolio` license); modifications in this fork are copyright © 2026 Ujang. Both are distributed under the same MIT terms — keep the original copyright notice when redistributing.
