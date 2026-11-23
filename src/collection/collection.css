@@ -1,5 +1,5 @@
-/* index.css locks the body for the landing page's smooth scroller; this page
-   is a plain document and has to scroll. Bundlers may order the two files
+/* index.css locks the body for the landing page's smooth scroller; these pages
+   are plain documents and have to scroll. Bundlers may order the two files
    either way, so the override does not rely on order. */
 html,
 body {
@@ -7,12 +7,12 @@ body {
   height: auto !important;
 }
 
-.certs-page {
+.collection-page {
   min-height: 100vh;
   padding: 30px clamp(20px, 7vw, 110px) 90px;
 }
 
-.certs-page-head {
+.collection-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,14 +21,14 @@ body {
   font-size: 14px;
 }
 
-.certs-page-back {
+.collection-back {
   color: var(--accentColor);
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 2px;
 }
 
-.certs-page h1 {
+.collection-page h1 {
   margin: 60px 0 10px;
   font-size: clamp(34px, 6vw, 68px);
   font-weight: 400;
@@ -40,20 +40,15 @@ body {
   color: transparent;
 }
 
-.certs-page h1 > span {
+.collection-page h1 > span {
   font-weight: 300;
 }
 
-.certs-page-count {
+.collection-count {
   margin: 0 0 42px;
   color: #9fb0c3;
 }
 
-.certs-grid-all {
-  width: 100%;
-  max-width: 1300px;
-}
-
-.certs-page-empty {
+.collection-empty {
   color: #9fb0c3;
 }

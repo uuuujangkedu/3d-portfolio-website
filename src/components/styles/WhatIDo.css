@@ -309,6 +309,9 @@
   .what-box-in {
     height: 500px;
     margin-left: -50px;
+    /* Desktop only reveals the cards from the 3D intro timeline; narrow
+       screens have no monitor scene, so show them straight away. */
+    display: flex;
   }
   .what-content {
     padding: 50px;

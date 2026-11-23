@@ -21,7 +21,10 @@ export const ContentProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    if (content) document.title = content.seo.title;
+    // Child effects run before this one, so a page that sets its own title wins.
+    if (content && !document.documentElement.hasAttribute("data-page-title")) {
+      document.title = content.seo.title;
+    }
   }, [content]);
 
   // Lets the admin dashboard drive this page inside its preview frame.

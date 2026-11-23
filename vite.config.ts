@@ -10,6 +10,7 @@ export default defineConfig({
         main: "index.html",
         admin: "admin.html",
         certificates: "certificates.html",
+        projects: "projects.html",
       },
     },
   },

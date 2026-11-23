@@ -1,16 +1,20 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import type { Content } from "../lib/content";
 
-// Where each section sits on the real page, so the frame jumps to it.
-const anchors: Record<string, string> = {
-  landing: "#landingDiv",
-  about: "#about",
-  career: "#career",
-  work: "#work",
-  certificates: "#certificates",
-  techStack: "#techStack",
-  contact: "#contact",
-  social: "#social",
+// Where each admin section actually lives: the real page to load, and the
+// element to scroll to once it is up. Project and Certificates have their own
+// full pages; everything else is a section of the landing page.
+const targets: Record<string, { src: string; anchor?: string }> = {
+  landing: { src: "/", anchor: "#landingDiv" },
+  about: { src: "/", anchor: "#about" },
+  whatIDo: { src: "/", anchor: ".whatIDO" },
+  career: { src: "/", anchor: ".career-section" },
+  work: { src: "/projects.html" },
+  certificates: { src: "/certificates.html" },
+  skills: { src: "/", anchor: "#skills" },
+  techStack: { src: "/", anchor: ".techstack" },
+  contact: { src: "/", anchor: "#contact" },
+  social: { src: "/", anchor: "#social" },
 };
 
 type Props = {
@@ -23,26 +27,29 @@ type Props = {
 // before they are saved. Same origin, so the frame can be driven directly.
 const Preview = ({ page, content, onRefresh }: Props) => {
   const frame = useRef<HTMLIFrameElement>(null);
+  const { src, anchor } = targets[page] ?? { src: "/" };
 
-  useEffect(() => {
-    const send = () =>
-      frame.current?.contentWindow?.postMessage(
-        { type: "portfolio:preview", content },
+  const send = useCallback(() => {
+    const target = frame.current?.contentWindow;
+    if (!target) return;
+    target.postMessage(
+      { type: "portfolio:preview", content },
+      window.location.origin
+    );
+    if (anchor) {
+      target.postMessage(
+        { type: "portfolio:preview-anchor", anchor },
         window.location.origin
       );
+    }
+  }, [content, anchor]);
+
+  useEffect(() => {
     send();
     // The page boots its own content first, so repeat until it has settled.
     const timers = [700, 1800, 3200].map((ms) => window.setTimeout(send, ms));
     return () => timers.forEach((id) => window.clearTimeout(id));
-  }, [content]);
-
-  useEffect(() => {
-    const target = frame.current?.contentWindow;
-    if (!target) return;
-    const anchor = anchors[page] ?? "";
-    // Keeps the draft alive: only the hash changes, the page does not reload.
-    target.location.hash = anchor;
-  }, [page]);
+  }, [send]);
 
   return (
     <aside className="ad-pane">
@@ -52,7 +59,12 @@ const Preview = ({ page, content, onRefresh }: Props) => {
           Muat ulang
         </button>
       </div>
-      <iframe ref={frame} src="/" title="Pratinjau situs" />
+      <iframe
+        ref={frame}
+        src={src}
+        title="Pratinjau situs"
+        onLoad={send}
+      />
     </aside>
   );
 };

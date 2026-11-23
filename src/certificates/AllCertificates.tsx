@@ -1,44 +1,32 @@
-import { useEffect } from "react";
 import { useContent } from "../context/ContentProvider";
 import CertCard from "../components/CertCard";
-import "../components/styles/Certificates.css";
-import "./certificates.css";
+import CollectionPage from "../collection/CollectionPage";
 
 const AllCertificates = () => {
-  const { certificates, navbar, seo } = useContent();
-
-  useEffect(() => {
-    document.title = `Sertifikat — ${navbar.initials}`;
-  }, [navbar.initials]);
+  const { certificates } = useContent();
 
   return (
-    <div className="certs-page">
-      <header className="certs-page-head">
-        <a href="/" className="certs-page-back">
-          ← {navbar.initials}
-        </a>
-        <span>{seo.title}</span>
-      </header>
-
-      <h1>
-        Certificates <span>&</span> credentials
-      </h1>
-      <p className="certs-page-count">
-        {certificates.length} kredensial
-      </p>
-
+    <CollectionPage
+      documentTitle="Certificates"
+      heading={
+        <>
+          Certificates <span>&</span> credentials
+        </>
+      }
+      count={`${certificates.length} credential${certificates.length === 1 ? "" : "s"}`}
+    >
       {certificates.length ? (
-        <div className="certs-grid certs-grid-all">
+        <div className="card-grid">
           {certificates.map((cert, index) => (
             <CertCard cert={cert} key={`${cert.title}-${cert.year}-${index}`} />
           ))}
         </div>
       ) : (
-        <p className="certs-page-empty">
-          Belum ada sertifikat. Tambah dari dashboard admin.
+        <p className="collection-empty">
+          No certificates yet. Add them from the admin dashboard.
         </p>
       )}
-    </div>
+    </CollectionPage>
   );
 };
 

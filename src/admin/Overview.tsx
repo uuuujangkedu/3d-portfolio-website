@@ -12,6 +12,9 @@ const countOf = (value: unknown) =>
 
 const Overview = ({ content, onOpen }: Props) => {
   const socials = [...content.social.icons, ...content.contact.socials];
+  const displayName =
+    (content as Partial<Content>).admin?.displayName?.trim() ||
+    content.landing.firstName;
   const placeholderImages = content.work.filter((project) =>
     project.image.includes("placeholder")
   ).length;
@@ -123,8 +126,8 @@ const Overview = ({ content, onOpen }: Props) => {
         <div>
           <h1>BERANDA</h1>
           <p>
-            Halo, <strong>{content.landing.firstName}</strong>. Ini isi
-            portofolio kamu sekarang.
+            Halo, <strong>{displayName}</strong>. Ini isi portofolio kamu
+            sekarang.
           </p>
         </div>
         <span className={issues ? "ad-chip ad-chip-warn" : "ad-chip"}>

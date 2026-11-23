@@ -1,0 +1,14 @@
+# Static multi-page site (index / admin / certificates): no SPA catch-all needed.
+# Without this, a host rewrite that sends every unknown path to index.html makes
+# missing assets return text/html, which the browser rejects for module scripts:
+# "Expected a JavaScript-or-Wasm module script but the server responded with text/html".
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ - [L]
+</IfModule>
+
+<IfModule mod_negotiation.c>
+  Options -MultiViews
+</IfModule>

@@ -14,6 +14,10 @@ export type Field = {
   label: string;
   type: FieldType | "group" | "list";
   options?: string[];
+  /** Small helper line under the label, e.g. a "hidden on mobile" caveat. */
+  note?: string;
+  /** Caps a text input (e.g. 3 for initials). */
+  maxLength?: number;
   fields?: Field[];
 };
 
@@ -52,8 +56,6 @@ export const sections: Section[] = [
     type: "group",
     fields: [
       { key: "initials", label: "Inisial / logo", type: "text" },
-      { key: "connectUrl", label: "URL tengah atas", type: "text" },
-      { key: "connectLabel", label: "Teks tengah atas", type: "text" },
       {
         key: "links",
         label: "Menu",
@@ -86,9 +88,7 @@ export const sections: Section[] = [
         label: "Foto lanyard belakang (kosong = foto acak)",
         type: "image",
       },
-      { key: "cardFrontTag", label: "Teks kartu depan", type: "text" },
-      { key: "cardBackTag", label: "Teks kartu belakang", type: "text" },
-      { key: "cardHint", label: "Keterangan saat disentuh", type: "text" },
+      { key: "cardFrontTag", label: "Teks kartu depan", type: "text", note: "Tidak tampil di tampilan mobile — hanya di desktop." },
     ],
   },
   {
@@ -228,6 +228,34 @@ export const sections: Section[] = [
       },
       { key: "resume", label: "Path file resume", type: "text" },
       { key: "showResume", label: "Tampilkan tombol resume", type: "boolean" },
+    ],
+  },
+  {
+    key: "admin",
+    label: "Tampilan admin",
+    type: "group",
+    fields: [
+      { key: "displayName", label: "Nama di panel", type: "text" },
+      {
+        key: "avatarInitials",
+        label: "Inisial avatar",
+        type: "text",
+        note: "Maksimal 3 huruf.",
+        maxLength: 3,
+      },
+      {
+        key: "brandMark",
+        label: "Inisial brand",
+        type: "text",
+        note: "Maksimal 3 huruf. Dipakai bila foto/ikon brand kosong.",
+        maxLength: 3,
+      },
+      {
+        key: "brandImage",
+        label: "Foto/ikon brand (opsional)",
+        type: "image",
+        note: "Tampil di sidebar admin dan halaman login. Rasio persegi paling rapi.",
+      },
     ],
   },
 ];

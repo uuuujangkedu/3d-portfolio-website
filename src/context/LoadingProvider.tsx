@@ -1,11 +1,6 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import Loading from "../components/Loading";
+import { isFramed } from "../lib/embed";
 
 interface LoadingType {
   isLoading: boolean;
@@ -16,7 +11,11 @@ interface LoadingType {
 export const LoadingContext = createContext<LoadingType | null>(null);
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setIsLoading] = useState(true);
+  // Inside the admin preview frame the loader is skipped: it would hide the
+  // page for seconds and keep the smoother paused. Navbar runs the entrance FX
+  // instead, once it has created the smoother.
+  const [embedded] = useState(isFramed);
+  const [isLoading, setIsLoading] = useState(!embedded);
   const [loading, setLoading] = useState(0);
 
   const value = {
@@ -24,7 +23,6 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
     setIsLoading,
     setLoading,
   };
-  useEffect(() => {}, [loading]);
 
   return (
     <LoadingContext.Provider value={value as LoadingType}>

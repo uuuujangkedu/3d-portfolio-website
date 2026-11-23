@@ -27,7 +27,6 @@ const Lanyard = () => {
     photo,
     backPhoto,
     cardFrontTag,
-    cardHint,
   } = useContent().landing;
   const { isLoading } = useLoading();
   const [src] = useState(() => photo || randomPhoto());
@@ -253,7 +252,6 @@ const Lanyard = () => {
                     grab ? 1.03 : 1
                   })`,
                 }}
-                title={cardHint || undefined}
               >
                 <div className="lanyard-face">
                   {broken ? (

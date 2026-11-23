@@ -135,3 +135,39 @@ body {
     font-size: 40px;
   }
 }
+
+/* Shared card grid + "view all" link (used by the Work and Certificates sections). */
+/* auto-fill (not auto-fit) keeps a single card card-sized instead of stretching
+   it across the whole row. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.section-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.section-more {
+  padding: 12px 28px;
+  border: 1px solid rgb(94 234 212 / 0.4);
+  border-radius: 999px;
+  color: var(--accentColor);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  transition: background 0.3s, border-color 0.3s;
+  text-decoration: none;
+}
+
+.section-more:hover,
+.section-more:focus-visible {
+  background: rgb(94 234 212 / 0.12);
+  border-color: rgb(94 234 212 / 0.7);
+}

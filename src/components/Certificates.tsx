@@ -43,10 +43,10 @@ const Certificates = () => {
                   </div>
                 )}
                 <div className="certs-stack-body">
-                  <span className="cert-year">{cert.year}</span>
+                  <span className="info-card-tag">{cert.year}</span>
                   <h4>{cert.title}</h4>
                   <h5>{cert.issuer}</h5>
-                  {cert.url && <em className="cert-link">Lihat kredensial ↗</em>}
+                  {cert.url && <em className="info-card-link">View credential ↗</em>}
                 </div>
               </div>
             );
@@ -76,9 +76,9 @@ const Certificates = () => {
         </div>
       </div>
 
-      <div className="certs-more-wrap">
-        <a className="certs-more" href="/certificates.html">
-          Lihat semua sertifikat ↗
+      <div className="section-more-wrap">
+        <a className="section-more" href="/certificates.html" target="_blank" rel="noreferrer">
+          View all certificates ↗
         </a>
       </div>
     </div>

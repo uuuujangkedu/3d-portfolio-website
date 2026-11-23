@@ -37,9 +37,10 @@ export async function signOut(): Promise<void> {
 
 export async function hasSession(): Promise<boolean> {
   if (!supabase) return STORAGE.getItem(SESSION_KEY) === "1";
+  // Remote mode needs a real Supabase session: the local flag alone would let
+  // the dashboard look signed in and then write as `anon` (permission denied).
   const { data } = await supabase.auth.getSession();
-  if (data.session !== null) return true;
-  return STORAGE.getItem(SESSION_KEY) === "1";
+  return data.session !== null;
 }
 
 export async function currentEmail(): Promise<string> {

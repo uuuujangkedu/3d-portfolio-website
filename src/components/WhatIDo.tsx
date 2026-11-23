@@ -10,20 +10,21 @@ const WhatIDo = () => {
     containerRef.current[index] = el;
   };
   useEffect(() => {
-    if (ScrollTrigger.isTouch) {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
-        }
-      });
-    }
+    if (!ScrollTrigger.isTouch) return;
+    // One handler per card, kept so cleanup can actually remove it. A fresh
+    // closure in cleanup (or a second StrictMode mount) left the listener
+    // attached twice, so each tap toggled the card open *and* closed again.
+    const bound = containerRef.current.flatMap((container) => {
+      if (!container) return [];
+      container.classList.remove("what-noTouch");
+      const handler = () => handleClick(container);
+      container.addEventListener("click", handler);
+      return [{ container, handler }];
+    });
     return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
-      });
+      bound.forEach(({ container, handler }) =>
+        container.removeEventListener("click", handler)
+      );
     };
   }, []);
   return (

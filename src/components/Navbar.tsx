@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useContent } from "../context/ContentProvider";
+import { isFramed } from "../lib/embed";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { FaGithub, FaInstagram, FaLinkedinIn, FaSpotify, FaStrava, FaYoutube } from "react-icons/fa6";
 import { TbNotes } from "react-icons/tb";
@@ -24,6 +25,7 @@ export let smoother: ScrollSmoother;
 const Navbar = () => {
   const { navbar, social } = useContent();
   const [isOpen, setIsOpen] = useState(false);
+  const fxStarted = useRef(false);
 
   useEffect(() => {
     smoother = ScrollSmoother.create({
@@ -38,6 +40,13 @@ const Navbar = () => {
 
     smoother.scrollTop(0);
     smoother.paused(true);
+
+    // The admin preview frame skips the loader, so the entrance FX has to be
+    // started here — right after the smoother exists — or it targets nothing.
+    if (isFramed() && !fxStarted.current) {
+      fxStarted.current = true;
+      import("./utils/initialFX").then((module) => module.initialFX());
+    }
 
     let links = document.querySelectorAll(".header ul a, .nav-menu-links a");
     links.forEach((elem) => {
@@ -57,6 +66,24 @@ const Navbar = () => {
     window.addEventListener("resize", () => {
       ScrollSmoother.refresh(true);
     });
+  }, []);
+
+  // Admin preview frame asks the page to jump to the section being edited.
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      const data = event.data as { type?: string; anchor?: string };
+      if (data?.type !== "portfolio:preview-anchor" || !data.anchor) return;
+      // scrollTo(selector) is inert here; offset() + scrollTop(pos) lands it.
+      const pos = smoother?.offset(data.anchor, "top top");
+      if (pos != null) smoother.scrollTop(pos);
+      else
+        document
+          .querySelector(data.anchor)
+          ?.scrollIntoView({ block: "start" });
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
   return (

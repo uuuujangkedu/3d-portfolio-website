@@ -57,7 +57,8 @@ Personal 3D portfolio of **Muhammad Riszki Fadhillah**, a full-stack developer. 
 ```text
 .
 ├── admin.html                 # Admin dashboard entry point
-├── certificates.html          # Certificates page entry point
+├── certificates.html          # All-certificates page entry point
+├── projects.html              # All-projects page entry point
 ├── public/                    # Static assets
 ├── supabase/
 │   └── schema.sql             # Tables, storage bucket, and RLS policies
@@ -65,6 +66,7 @@ Personal 3D portfolio of **Muhammad Riszki Fadhillah**, a full-stack developer. 
 │   ├── admin/                 # Admin dashboard app (auth, editors, preview)
 │   ├── assets/                # Local media/assets
 │   ├── certificates/          # All-certificates page
+│   ├── collection/            # Shared full-page listing chrome (projects + certificates)
 │   ├── components/
 │   │   ├── Character/         # 3D scene + character logic/utilities
 │   │   ├── styles/            # Section/component CSS files
@@ -79,6 +81,7 @@ Personal 3D portfolio of **Muhammad Riszki Fadhillah**, a full-stack developer. 
 │   │   ├── TechStack.tsx
 │   │   ├── WhatIDo.tsx
 │   │   └── Work.tsx
+│   ├── projects/              # All-projects page
 │   ├── context/               # Global providers (content, loading, etc.)
 │   ├── data/                  # content.json + schema
 │   ├── lib/                   # Supabase client and helpers
@@ -179,6 +182,8 @@ Picking a file opens a framing editor: drag to pan (after zooming), a zoom slide
 ### Hosting note
 
 `admin.html` is a real file, so `https://your-domain/admin.html` works as-is. A shorter `/admin` URL needs a rewrite rule on your host (Vercel `rewrites`, Netlify `_redirects`).
+
+Every page here is static (`index.html`, `admin.html`, `certificates.html`, `projects.html`), so a catch-all rewrite that sends unknown paths to `index.html` is not needed and actively breaks asset loading: a missing `/assets/*.js` would be answered with `text/html` and the browser rejects it ("Expected a JavaScript-or-Wasm module script"). `public/.htaccess` ships with the build to keep those requests on a real 404 under Apache/cPanel.
 
 ## GSAP License Note
 

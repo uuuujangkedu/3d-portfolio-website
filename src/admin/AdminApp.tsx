@@ -3,6 +3,7 @@ import type { ComponentType } from "react";
 import {
   MdBuild,
   MdContacts,
+  MdDashboard,
   MdHomeWork,
   MdHourglassEmpty,
   MdLayers,
@@ -42,6 +43,7 @@ const icons: Record<string, ComponentType> = {
   techStack: MdLayers,
   contact: MdContacts,
   social: MdShare,
+  admin: MdDashboard,
 };
 
 const initialsOf = (name: string) =>
@@ -52,7 +54,19 @@ const initialsOf = (name: string) =>
     .map((part) => part[0]?.toUpperCase())
     .join("");
 
-const Login = ({ onDone }: { onDone: () => void }) => {
+type Brand = { mark: string; image: string };
+
+// Admin chrome shows the uploaded brand image, or the initials when none is set.
+const BrandMark = ({ brand }: { brand: Brand }) =>
+  brand.image ? (
+    <span className="ad-brand-mark">
+      <img src={brand.image} alt={brand.mark} />
+    </span>
+  ) : (
+    <span className="ad-brand-mark">{brand.mark}</span>
+  );
+
+const Login = ({ onDone, brand }: { onDone: () => void; brand: Brand }) => {
   const [email, setEmail] = useState(demoMode ? demoCredentials.email : "");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -75,7 +89,9 @@ const Login = ({ onDone }: { onDone: () => void }) => {
   return (
     <div className="ad-login">
       <form onSubmit={submit}>
-        <span className="ad-login-mark">MRF</span>
+        <span className="ad-login-mark">
+          {brand.image ? <img src={brand.image} alt={brand.mark} /> : brand.mark}
+        </span>
         <h1>Masuk Dashboard</h1>
         <p className="ad-login-sub">
           {demoMode
@@ -137,6 +153,21 @@ const AdminApp = () => {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [previewKey, setPreviewKey] = useState(0);
+  // The login card is shown before any content is loaded, so its branding is
+  // read up front (site_content allows public reads).
+  const [siteBrand, setSiteBrand] = useState<Brand>({ mark: "MRF", image: "" });
+
+  useEffect(() => {
+    loadContent()
+      .then((loaded) => {
+        const admin = loaded.admin;
+        setSiteBrand({
+          mark: admin?.brandMark?.trim() || loaded.loader.initials || "MRF",
+          image: admin?.brandImage?.trim() || "",
+        });
+      })
+      .catch(() => undefined);
+  }, []);
 
   useEffect(() => {
     hasSession()
@@ -150,8 +181,21 @@ const AdminApp = () => {
   useEffect(() => {
     if (!signedIn) return;
     loadContent().then((loaded) => {
-      setContent(loaded);
-      setSaved(loaded);
+      // Rows saved before the admin-chrome fields existed have no `admin`, so
+      // seed it from the site itself instead of showing blank inputs.
+      const withAdmin = {
+        ...loaded,
+        admin: (loaded as Partial<Content>).admin ?? {
+          displayName: loaded.landing.firstName,
+          avatarInitials: initialsOf(
+            `${loaded.landing.firstName} ${loaded.landing.lastName}`
+          ),
+          brandMark: loaded.loader.initials,
+          brandImage: "",
+        },
+      };
+      setContent(withAdmin);
+      setSaved(withAdmin);
     });
   }, [signedIn]);
 
@@ -166,7 +210,12 @@ const AdminApp = () => {
       setSaved(content);
       setStatus("Tersimpan");
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      const message = err instanceof Error ? err.message : String(err);
+      setError(
+        /permission denied/i.test(message)
+          ? `${message} — sesi Supabase tidak valid atau izin tabel belum diberikan. Keluar lalu masuk lagi, dan jalankan supabase/schema.sql di SQL editor Supabase.`
+          : message
+      );
       setStatus("");
     }
   };
@@ -184,7 +233,7 @@ const AdminApp = () => {
   };
 
   if (checking) return <div className="ad-login">Memeriksa sesi…</div>;
-  if (!signedIn) return <Login onDone={() => setSignedIn(true)} />;
+  if (!signedIn) return <Login onDone={() => setSignedIn(true)} brand={siteBrand} />;
   if (!content) return <div className="ad-login">Memuat konten…</div>;
 
   const activeSection = sections.find((section) => section.key === page);
@@ -192,20 +241,29 @@ const AdminApp = () => {
     ? (content as Record<string, unknown>)[activeSection.key]
     : undefined;
 
+  const admin = (content as Partial<Content>).admin;
+  const brandMark = admin?.brandMark?.trim() || content.loader.initials;
+  const brand: Brand = {
+    mark: brandMark,
+    image: admin?.brandImage?.trim() || "",
+  };
+  const displayName = admin?.displayName?.trim() || content.landing.firstName;
+  const avatarInitials =
+    admin?.avatarInitials?.trim() ||
+    initialsOf(`${content.landing.firstName} ${content.landing.lastName}`);
+
   return (
     <div className="ad-shell">
       <aside className="ad-side">
         <div className="ad-brand">
-          <span className="ad-brand-mark">{content.loader.initials}</span>
-          <span>Portfolio Admin</span>
+          <BrandMark brand={brand} />
+          <span className="ad-brand-name">Portfolio Admin</span>
         </div>
 
         <div className="ad-user">
-          <span className="ad-avatar">
-            {initialsOf(`${content.landing.firstName} ${content.landing.lastName}`)}
-          </span>
+          <span className="ad-avatar">{avatarInitials}</span>
           <div>
-            <strong>{content.landing.firstName}</strong>
+            <strong>{displayName}</strong>
             <span className="ad-user-mail">{email}</span>
             <span className="ad-role">ADMIN</span>
           </div>

@@ -22,6 +22,9 @@ const blankItem = (field: Field): Record<string, unknown> =>
     (field.fields ?? []).map((child) => [child.key, emptyValue(child)])
   );
 
+const Note = ({ note }: { note?: string }) =>
+  note ? <em className="ad-field-note">{note}</em> : null;
+
 // Every branch spreads the previous value, so keys missing from the schema
 // survive a round trip instead of being dropped on save.
 export const FieldEditor = ({ field, value, onChange }: Props) => {
@@ -186,6 +189,7 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
     return (
       <label className="ad-field">
         <span>{field.label}</span>
+        <Note note={field.note} />
         <textarea
           rows={4}
           value={String(value ?? "")}
@@ -203,7 +207,10 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
           checked={Boolean(value)}
           onChange={(e) => onChange(e.target.checked)}
         />
-        <span>{field.label}</span>
+        <span>
+          {field.label}
+          <Note note={field.note} />
+        </span>
       </label>
     );
   }
@@ -212,6 +219,7 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
     return (
       <label className="ad-field">
         <span>{field.label}</span>
+        <Note note={field.note} />
         <select value={String(value ?? "")} onChange={(e) => onChange(e.target.value)}>
           {field.options?.map((option) => (
             <option key={option} value={option}>
@@ -230,7 +238,12 @@ export const FieldEditor = ({ field, value, onChange }: Props) => {
   return (
     <label className="ad-field">
       <span>{field.label}</span>
-      <input value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} />
+      <Note note={field.note} />
+      <input
+        value={String(value ?? "")}
+        maxLength={field.maxLength}
+        onChange={(e) => onChange(e.target.value)}
+      />
     </label>
   );
 };
@@ -254,6 +267,7 @@ const ImageField = ({ field, value, onChange }: Props) => {
   return (
     <div className="ad-field">
       {field.label ? <span>{field.label}</span> : null}
+      <Note note={field.note} />
       <div className="ad-row">
         <input
           value={String(value ?? "")}

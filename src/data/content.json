@@ -13,7 +13,7 @@
     "connectLabel": "linkedin.com/in/muhammad-riszki-fadhillah",
     "links": [
       { "label": "ABOUT", "href": "#about" },
-      { "label": "WORK", "href": "#work" },
+      { "label": "WORKS", "href": "#work" },
       { "label": "CERTS", "href": "#certificates" },
       { "label": "SKILLS", "href": "#skills" },
       { "label": "CONTACT", "href": "#contact" }
@@ -28,9 +28,7 @@
     "roleSecondary": "Backend",
     "photo": "",
     "backPhoto": "",
-    "cardFrontTag": "Web",
-    "cardBackTag": "Portfolio ID",
-    "cardHint": "Tarik ke mana saja, klik untuk membalik"
+    "cardFrontTag": "Web"
   },
   "about": {
     "title": "About Me",
@@ -165,5 +163,11 @@
     ],
     "resume": "/CV.pdf",
     "showResume": true
+  },
+  "admin": {
+    "displayName": "MUHAMMAD",
+    "avatarInitials": "MR",
+    "brandMark": "MRF",
+    "brandImage": ""
   }
 }
